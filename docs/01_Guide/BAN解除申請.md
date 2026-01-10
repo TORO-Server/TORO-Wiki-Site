@@ -2,13 +2,13 @@
 title: BAN解除申請
 ---
 
-### BANなどの解除をして欲しい時は...
+## BANなどの解除をして欲しい時は
 
 TORO ServerでBAN処罰やミュート処罰などを受けた際、異議申立や解除申請などは以下のGoogleフォームよりお問い合わせください。  
 当WikiにBAN解除申請のコメントを行なわれても、原則対応いたしません。  
-<https://forms.gle/7eDyTe7JNAriKamg9>
+[https://forms.gle/7eDyTe7JNAriKamg9](https://forms.gle/7eDyTe7JNAriKamg9)
 
-### 処罰解除情報
+## 処罰解除情報
 
 処罰解除の可否は、審議完了後3か月間掲載されます。  
 

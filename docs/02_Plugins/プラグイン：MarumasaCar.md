@@ -10,14 +10,17 @@ MarumasaCarはAdminのまるまさ氏によって開発された自動車プラ�
 * [目次](#content_1)
 * [出し方/消し方](#content_2)
 * [使える自動車の種類](#content_3)
-  + [AT車について](#content_3_1)
-  + [SmoothCarについて](#content_3_2)
+  * [AT車について](#content_3_1)
+  * [SmoothCarについて](#content_3_2)
 
 ### 出し方/消し方
 
 以下のコマンドを実行して手に入れた防具建てを設置するだけです。  
 
+```text
 /give @p minecraft:armor\_stand{EntityTag:{id:armor\_stand,ShowArms:1b,Tags:["ここにIDを入力"]}} 1
+```
+
 IDの一覧は次の項で紹介します。  
   
 シフトを押しながら右クリックで乗り物を消せます(消せなくなった場合は、必ず運営に自分で報告する事)

@@ -8,8 +8,8 @@ title: プラグイン・Mod・外部ツール一覧
 * [プラグイン](#content_2)
 * [外部ツール](#content_3)
 * [Mod](#content_4)
-  + [一覧表](#content_4_1)
-  + [前提Modの導入](#content_4_2)
+  * [一覧表](#content_4_1)
+  * [前提Modの導入](#content_4_2)
 
 ### プラグイン
 
@@ -38,10 +38,10 @@ title: プラグイン・Mod・外部ツール一覧
 
 | 解説ページ | 概要 | リンク | 作者 |
 | --- | --- | --- | --- |
-| [Dynmap](../02_Plugins/Dynmap.md) | ワールドを2D/3Dで俯瞰した地図をウェブで見れる | <https://map.torosaba.net> |  |
-| TOROPassWallet | TOROPassの使用履歴を見れます | <https://toro-server.github.io/TOROpass-Wallet/> | rupirupi\_ |
-| [カスタムサウンド配布所](https://discord.com/channels/337838758441517057/731793884232941660/1448247549327704217) | サーバー内で使えるカスタムサウンドを手に入れるコマンドを取得できる | <https://sound.torosaba.net/> | rupirupi\_ |
-| TORONavi | カーナビ風に地図を表示するアプリ(開発中) | <https://github.com/TORO-Server/toronavi/> | rupirupi\_ |
+| [Dynmap](../02_Plugins/Dynmap.md) | ワールドを2D/3Dで俯瞰した地図をウェブで見れる | [https://map.torosaba.net](https://map.torosaba.net) |  |
+| TOROPassWallet | TOROPassの使用履歴を見れます | [https://toro-server.github.io/TOROpass-Wallet/](https://toro-server.github.io/TOROpass-Wallet/) | rupirupi\_ |
+| [カスタムサウンド配布所](https://discord.com/channels/337838758441517057/731793884232941660/1448247549327704217) | サーバー内で使えるカスタムサウンドを手に入れるコマンドを取得できる | [https://sound.torosaba.net/](https://sound.torosaba.net/) | rupirupi\_ |
+| TORONavi | カーナビ風に地図を表示するアプリ(開発中) | [https://github.com/TORO-Server/toronavi/](https://github.com/TORO-Server/toronavi/) | rupirupi\_ |
 
 ### Mod
 

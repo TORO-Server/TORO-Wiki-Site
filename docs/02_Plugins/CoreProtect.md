@@ -50,7 +50,7 @@ title: Coreprotect
 #### 時間
 
 アクションをどのくらい前の時点まで戻すか。  
-<数値><単位>[<数値2><単位2>…]
+\<数値\>\<単位\>[\<数値2\>\<単位2\>…]
 
 |  |  |
 | --- | --- |
@@ -61,18 +61,16 @@ title: Coreprotect
 | m | 分 |
 | s | 秒 |
 
-  
-
 ![](../attachments/386696e9903dfdfe8057eaf0b13380d0.gif)
 
 例
 
 * t:2w,5d,7h,2m,10s
-  + 2週間と5日と7時間2分10秒前
+  * 2週間と5日と7時間2分10秒前
 * t:5d2h
-  + 5日と2時間前
+  * 5日と2時間前
 * t:2.5h
-  + 2時間半前
+  * 2時間半前
 
 #### 場所
 
@@ -107,10 +105,10 @@ title: Coreprotect
 | --- | --- | --- | --- |
 | /co inspect | coreprotect.inspect | クリックしたところのログを見る | /co i |
 | /co help | coreprotect.help | ヘルプを見る |  |
-| /co rollback <パラメーター> | coreprotect.rollback | ロールバック！ | /co rb |
-| /co restore <パラメーター> | coreprotect.restore | ロールバックの取り消し | /co rs |
-| /co lookup <パラメーター> | coreprotect.lookup | ログのリストを見る | /co l |
-| /co purge <パラメーター> | coreprotect.purge | ログの削除 |  |
+| /co rollback \<パラメーター\> | coreprotect.rollback | ロールバック！ | /co rb |
+| /co restore \<パラメーター\> | coreprotect.restore | ロールバックの取り消し | /co rs |
+| /co lookup \<パラメーター\> | coreprotect.lookup | ログのリストを見る | /co l |
+| /co purge \<パラメーター\> | coreprotect.purge | ログの削除 |  |
 | /co reload | coreprotect.reload | コンフィグのリロード |  |
 | /co version |  | バージョンを見る |  |
 | /co near |  | 5ブロック以内のログを見る |  |

@@ -7,16 +7,14 @@ title: TORO Music Circle
 **目次**
 
 * [TORO Music Circleについて](#content_1)
-  + [Discord](#content_1_1)
+  * [Discord](#content_1_1)
 * [イベント](#content_2)
-  + [予定](#content_2_2)
-  + [過去](#content_2_3)
+  * [予定](#content_2_2)
+  * [過去](#content_2_3)
 * [制作物](#content_3)
-  + [アイコン](#content_3_4)
-  + [ポスター](#content_3_5)
+  * [アイコン](#content_3_4)
+  * [ポスター](#content_3_5)
 * [沿革](#content_4)
-
-  
 
 ### TORO Music Circleについて
 
@@ -26,7 +24,7 @@ TMCではTORO Serverで処罰されるようなこと以外であれば基本的
 #### Discord
 
 どなたでも参加OKです！  
-<https://discord.gg/rKh2YYwnmU>
+[https://discord.gg/rKh2YYwnmU](https://discord.gg/rKh2YYwnmU)
 
 ### イベント
 
