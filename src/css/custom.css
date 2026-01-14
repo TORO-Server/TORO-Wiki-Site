@@ -72,14 +72,16 @@ body {
 }
 
 .navbar__brand {
-  font-weight: bold;
+  font-weight: lighter;
   text-shadow: 1px 1px #0f1089;
   font-size: 20px;
   color: white !important;
   margin-right: 15px;
 }
 
-.navbar__title {}
+.navbar__title {
+  font-weight: lighter;
+}
 
 /* Navbar Links */
 .navbar__item,
