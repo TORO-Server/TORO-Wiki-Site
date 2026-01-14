@@ -47,6 +47,11 @@ body {
   padding: 0;
 }
 
+[data-theme='dark'] body {
+  background-image: none;
+  background-color: #1b1b1d;
+}
+
 /* Docusaurus Layout Overrides */
 /* Be careful not to break the flex column layout of docusaurus itself */
 #__docusaurus {
@@ -208,8 +213,8 @@ h3 {
 
 /* Footer */
 .footer {
-  background: transparent;
-  /* Let window bg show through */
+  background: #ece9d8;
+  /* Match window bg */
   border-top: 1px solid #999;
   color: #444;
   padding: 15px;
@@ -219,26 +224,112 @@ h3 {
 /* Dark Mode Overrides - Keeping XP Look */
 [data-theme='dark'] {
   --ifm-font-family-base: "Tahoma", "Verdana", sans-serif;
-  --ifm-color-primary: #0054e3;
-  --ifm-background-color: var(--xp-window-bg);
-  --ifm-background-surface-color: #fff;
-  --ifm-navbar-background-color: transparent;
-  --ifm-footer-background-color: #ece9d8;
-  --ifm-footer-color: #000;
+  --ifm-color-primary: #659bfc;
+  --ifm-background-color: #1b1b1d;
+  --ifm-background-surface-color: #242526;
+  --ifm-navbar-background-color: #242526;
+  --ifm-footer-background-color: #242526;
+  --ifm-footer-color: #fff;
   --ifm-menu-color: #fff;
-  /* Sidebar links are white on blue */
-  --ifm-color-content: #000;
-  --ifm-link-color: #0054e3;
-  --ifm-heading-color: #003399;
+  --ifm-color-content: #e3e3e3;
+  --ifm-link-color: #659bfc;
+  --ifm-heading-color: #fff;
+  --ifm-border-color: #303030;
 }
 
 /* Dark Mode Sidebar specific */
 [data-theme='dark'] [class^='docSidebarContainer'] {
-  border-right: 1px solid white;
-  background: linear-gradient(180deg, #7b9ee9 0%, #688fce 100%) !important;
+  border-right: 1px solid #303030;
+  background: #18191a !important;
+}
+
+[data-theme='dark'] .navbar {
+  background: linear-gradient(180deg, #303030, #18191a);
+  border-color: #444;
+  box-shadow: none;
+}
+
+[data-theme='dark'] .main-wrapper {
+  background: #18191a;
+  border-color: #444;
+  box-shadow: none;
+}
+
+[data-theme='dark'] .navbar__brand {
+  text-shadow: none;
+  font-weight: normal;
+}
+
+[data-theme='dark'] .navbar__item,
+[data-theme='dark'] .navbar__link {
+  text-shadow: none;
 }
 
 [data-theme='dark'] main {
+  background-color: #242526;
+  color: #e3e3e3;
+  border-color: #303030;
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Mobile Sidebar Fixes */
+.navbar-sidebar {
+  background: #ece9d8;
+  /* XP Window Background (Beige) - Softer on eyes */
+  border-right: 1px solid #003092;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-sidebar__item {
+  color: black;
+}
+
+.navbar-sidebar .menu__link {
+  color: #000 !important;
+}
+
+.navbar-sidebar .menu__link:hover {
   background-color: #fff;
-  color: #000;
+  border: 1px solid #003092;
+  /* Selection style */
+}
+
+[data-theme='dark'] .navbar-sidebar {
+  background: #18191a;
+  border-right: 1px solid #444;
+}
+
+[data-theme='dark'] .navbar-sidebar__item {
+  color: #e3e3e3;
+}
+
+[data-theme='dark'] .navbar-sidebar .menu__link {
+  color: #e3e3e3 !important;
+}
+
+[data-theme='dark'] .navbar-sidebar .menu__link:hover {
+  background-color: #303030;
+  border: 1px solid #659bfc;
+}
+
+
+
+/* Mobile Layout Adjustments */
+@media (max-width: 996px) {
+  #__docusaurus {
+    padding: 0;
+    min-height: 100vh;
+  }
+
+  .navbar {
+    border-radius: 0;
+    border: none;
+    border-bottom: 2px solid #003092;
+  }
+
+  .main-wrapper {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
 }
