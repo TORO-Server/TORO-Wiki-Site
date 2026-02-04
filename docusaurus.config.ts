@@ -32,8 +32,8 @@ const config: Config = {
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: 'ja',
+    locales: ['ja'],
   },
 
   presets: [
@@ -46,6 +46,8 @@ const config: Config = {
           // Remove this to remove the "edit this page" links.
           editUrl:
             'https://github.com/TORO-Server/TORO-Wiki/edit/main/',
+          showLastUpdateTime: true,
+          showLastUpdateAuthor: true,
         },
         blog: {
           showReadingTime: true,
@@ -145,6 +147,10 @@ const config: Config = {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
     },
+    metadata: [
+      {name: 'keywords', content: 'TORO Server, Minecraft, Wiki, マインクラフト, サーバー, トロサーバー, ドキュメント'},
+      {name: 'description', content: 'Official TORO Server Wiki - TOROサーバーの公式ウィキです。'},
+    ],
   } satisfies Preset.ThemeConfig,
 };
 
