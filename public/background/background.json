@@ -1,0 +1,94 @@
+{
+  "generatedAt": "2026-10-29T23:19:16.403Z",
+  "bluemap": {
+    "url": "https://3d-map.torosaba.net",
+    "map": "overworld"
+  },
+  "seconds": 12,
+  "pois": [
+    {
+      "id": "spawn",
+      "name": "スポーン",
+      "note": "はじめて入った人が降り立つ、円形の広場",
+      "x": 0,
+      "y": 67,
+      "z": -2000,
+      "page": "00_Main/TORO Serverとは？",
+      "av1": "spawn.av1.mp4",
+      "h264": "spawn.h264.mp4",
+      "poster": "spawn.jpg"
+    },
+    {
+      "id": "wayama",
+      "name": "輪山市",
+      "note": "起伏に富んだ地形に広がる都市",
+      "x": 2500,
+      "y": 76,
+      "z": -2600,
+      "page": "04_World_and_Cities/自治体一覧",
+      "av1": "wayama.av1.mp4",
+      "h264": "wayama.h264.mp4",
+      "poster": "wayama.jpg"
+    },
+    {
+      "id": "east-airport",
+      "name": "東部の空港",
+      "note": "湾に面した大きな空港と港",
+      "x": 4790,
+      "y": 64,
+      "z": 1280,
+      "page": "03_Transportation/空港一覧",
+      "av1": "east-airport.av1.mp4",
+      "h264": "east-airport.h264.mp4",
+      "poster": "east-airport.jpg"
+    },
+    {
+      "id": "north-city",
+      "name": "北部の市街地",
+      "note": "スタジアムやビルが並ぶ北の都心",
+      "x": -1325,
+      "y": 70,
+      "z": -5740,
+      "page": "04_World_and_Cities/自治体一覧",
+      "av1": "north-city.av1.mp4",
+      "h264": "north-city.h264.mp4",
+      "poster": "north-city.jpg"
+    },
+    {
+      "id": "south-bay",
+      "name": "南の湾岸",
+      "note": "内海に突き出した港町",
+      "x": 240,
+      "y": 64,
+      "z": 1800,
+      "page": "04_World_and_Cities/自治体一覧",
+      "av1": "south-bay.av1.mp4",
+      "h264": "south-bay.h264.mp4",
+      "poster": "south-bay.jpg"
+    },
+    {
+      "id": "koroku",
+      "name": "幸麓市",
+      "note": "鯖初期からの建物が残る幸麓府の中心",
+      "x": 2008,
+      "y": 64,
+      "z": -162,
+      "page": "04_World_and_Cities/幸麓府",
+      "av1": "koroku.av1.mp4",
+      "h264": "koroku.h264.mp4",
+      "poster": "koroku.jpg"
+    },
+    {
+      "id": "lake",
+      "name": "北西の湖",
+      "note": "湖に浮かぶ巨大な円形の施設",
+      "x": -3850,
+      "y": 63,
+      "z": -5410,
+      "page": "04_World_and_Cities/サーバー見所、観光地集",
+      "av1": "lake.av1.mp4",
+      "h264": "lake.h264.mp4",
+      "poster": "lake.jpg"
+    }
+  ]
+}

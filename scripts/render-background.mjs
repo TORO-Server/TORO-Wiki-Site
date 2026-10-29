@@ -4,10 +4,11 @@
 //   node scripts/render-background.mjs                 すべての名所を撮って public/background に書き出す
 //   node scripts/render-background.mjs spawn wayama    指定した名所だけ
 //   node scripts/render-background.mjs --frames 30     試し撮り (先頭の 30 コマだけ)
+//   node scripts/render-background.mjs --encode-only   撮り直さず、中間ファイルから Web 用の動画だけ作り直す
 //
 // 必要なもの: Google Chrome, ffmpeg (libx264, libsvtav1。あれば h264_nvenc で中間ファイルを速く作る)
 import { spawn } from 'node:child_process';
-import { mkdir, writeFile, rm } from 'node:fs/promises';
+import { mkdir, writeFile, readFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -22,6 +23,7 @@ const CHROME =
   ['C:/Program Files/Google/Chrome/Application/chrome.exe', '/usr/bin/google-chrome', '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'].find(existsSync);
 
 const args = process.argv.slice(2);
+const encodeOnly = args.includes('--encode-only');
 const frameLimit = args.includes('--frames') ? Number(args[args.indexOf('--frames') + 1]) : Infinity;
 const only = args.filter((a, i) => !a.startsWith('--') && args[i - 1] !== '--frames');
 const targets = only.length ? POIS.filter((p) => only.includes(p.id)) : POIS;
@@ -79,11 +81,67 @@ function tilesIdle() {
   return managers.every((t) => !t || t.currentlyLoading === 0);
 }
 
-async function waitIdle(page, stableMs, timeoutMs) {
+/** MarumaSign の看板画像の読み込みが落ち着いたか (スクリプトがないときは常に true) */
+function signsIdle() {
+  const s = window.marumasign3d?.stats?.();
+  return !s || (s.loading === 0 && s.queued === 0);
+}
+
+/**
+ * MarumaSign Companion の 3D 看板 (marumasign3d.js) を、撮影用に少し変えて返す。
+ * 本来は看板の大きさに応じて近くのものだけ描く (5×5 の看板なら 71 ブロック以内) が、
+ * 背景のカメラは名所から 400 ブロックほど離れるので、512 ブロック以内の看板をすべて描かせる。
+ * 撮影のブラウザーの中だけの変更で、本番の地図には何もしない。
+ */
+const SIGN_PATCHES = [
+  // 看板ごとの表示距離の上限を外す
+  ['return Math.min(cap, Math.min(512, 64 + Math.sqrt(maxSq) * 2));', 'return Math.min(cap, 512);'],
+  // カメラを動かした直後に、看板の入れ替えを撮影の側から呼べるようにする
+  ['        stats: function () {', '        update: function () { dirty = true; update(); },\n        stats: function () {'],
+];
+
+async function interceptSigns(page) {
+  const cache = new Map();
+  const upstream = async (url) => {
+    if (!cache.has(url)) cache.set(url, fetch(url).then(async (r) => ({ status: r.status, type: r.headers.get('content-type') ?? '', body: await r.text() })));
+    return cache.get(url);
+  };
+  await page.setRequestInterception(true);
+  page.on('request', async (req) => {
+    const url = req.url();
+    try {
+      if (/\/js\/marumasign3d\.js/.test(url)) {
+        // MARUMASIGN_SCRIPT があれば、まだ本番に入れていない手元のスクリプトで撮る
+        const local = process.env.MARUMASIGN_SCRIPT;
+        const r = local ? { status: 200, body: await readFile(local, 'utf8') } : await upstream(url);
+        let body = r.body;
+        for (const [from, to] of SIGN_PATCHES) {
+          if (!body.includes(from)) console.warn(`marumasign3d.js: 差し替える場所が見つかりません: ${from.trim().slice(0, 40)}`);
+          body = body.replace(from, to);
+        }
+        return req.respond({ status: r.status, contentType: 'text/javascript', body });
+      }
+      if (/\/marumasign\/[^/?]+\.json/.test(url)) {
+        const r = await upstream(url);
+        if (r.status !== 200) return req.respond({ status: r.status, body: r.body });
+        // 遠くの看板まで描くので、テクスチャは小さく、同時に出す数は多く
+        const json = JSON.parse(r.body);
+        // 看板の板は消し (MarumaSign 本体と同じ見え方)、URL のラベルは出さない
+        Object.assign(json, { drawDistance: 512, maxActive: 1000, textureSize: 256, hideBoards: true, labels: false });
+        return req.respond({ status: 200, contentType: 'application/json', body: JSON.stringify(json) });
+      }
+    } catch (e) {
+      console.warn(`看板のデータを差し替えられませんでした: ${e.message}`);
+    }
+    return req.continue();
+  });
+}
+
+async function waitIdle(page, stableMs, timeoutMs, check = tilesIdle) {
   const start = Date.now();
   let since = 0;
   while (Date.now() - start < timeoutMs) {
-    const idle = await page.evaluate(tilesIdle);
+    const idle = await page.evaluate(check);
     if (idle) {
       since ||= Date.now();
       if (Date.now() - since >= stableMs) return true;
@@ -97,7 +155,9 @@ async function waitIdle(page, stableMs, timeoutMs) {
 
 async function renderPoi(browser, poi, intermediateCodec) {
   const page = await browser.newPage();
-  if (!VIDEO.marumasign) {
+  if (VIDEO.marumasign) {
+    await interceptSigns(page);
+  } else {
     // MarumaSign の看板画像 (外部サイトの画像) を映さない
     await page.setRequestInterception(true);
     page.on('request', (req) => (/marumasign/i.test(req.url()) ? req.abort() : req.continue()));
@@ -146,6 +206,14 @@ async function renderPoi(browser, poi, intermediateCodec) {
     if (!ok) console.warn(`[${poi.id}] frame ${f}: タイルの読み込みを待ちきれませんでした`);
     // 読み込んだタイルが描画に反映されるまで 2 フレーム待つ
     await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
+    if (VIDEO.marumasign) {
+      // カメラの新しい位置で看板を入れ替えて、画像が届くまで待つ
+      await page.evaluate(() => window.marumasign3d?.update?.());
+      const signsOk = await waitIdle(page, f === 0 ? 1500 : 80, f === 0 ? 180_000 : 20_000, signsIdle);
+      if (!signsOk) console.warn(`[${poi.id}] frame ${f}: 看板の画像を待ちきれませんでした`);
+      if (f === 0) console.log(`[${poi.id}] MarumaSign:`, JSON.stringify(await page.evaluate(() => window.marumasign3d?.stats?.() ?? null)));
+      await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
+    }
     const { data } = await cdp.send('Page.captureScreenshot', { format: 'jpeg', quality: 95, optimizeForSpeed: true });
     if (!ff.stdin.write(Buffer.from(data, 'base64'))) await new Promise((r) => ff.stdin.once('drain', r));
     if (f % 30 === 0) console.log(`[${poi.id}] ${f}/${total} (${((Date.now() - started) / 1000).toFixed(0)}s)`);
@@ -158,11 +226,13 @@ async function renderPoi(browser, poi, intermediateCodec) {
 
 /** 中間ファイルから、Web 用の動画 (AV1 1080p と H.264 720p) とポスター画像を作る */
 async function encodeForWeb(id, src) {
+  // 細かいブロックは CRF だと重くなりすぎるので、ビットレートで決める (12 秒で AV1 は約 3.5 MB、H.264 は約 2.3 MB)
   await run('ffmpeg', ['-y', '-hide_banner', '-loglevel', 'error', '-i', src, '-an',
-    '-c:v', 'libsvtav1', '-preset', '5', '-crf', '40', '-g', '120', '-pix_fmt', 'yuv420p', '-movflags', '+faststart',
+    '-c:v', 'libsvtav1', '-preset', '5', '-b:v', '2400k', '-svtav1-params', 'rc=1', '-g', '120', '-pix_fmt', 'yuv420p', '-movflags', '+faststart',
     join(OUT, `${id}.av1.mp4`)]);
   await run('ffmpeg', ['-y', '-hide_banner', '-loglevel', 'error', '-i', src, '-an',
-    '-vf', 'scale=1280:-2', '-c:v', 'libx264', '-preset', 'slow', '-crf', '27', '-profile:v', 'high', '-pix_fmt', 'yuv420p', '-movflags', '+faststart',
+    '-vf', 'scale=1280:-2', '-c:v', 'libx264', '-preset', 'slow', '-b:v', '1800k', '-maxrate', '2400k', '-bufsize', '4800k',
+    '-profile:v', 'high', '-pix_fmt', 'yuv420p', '-movflags', '+faststart',
     join(OUT, `${id}.h264.mp4`)]);
   await run('ffmpeg', ['-y', '-hide_banner', '-loglevel', 'error', '-i', src, '-frames:v', '1',
     '-vf', 'scale=1280:-2', '-q:v', '4', join(OUT, `${id}.jpg`)]);
@@ -172,6 +242,25 @@ async function main() {
   if (!CHROME) throw new Error('Chrome が見つかりません (CHROME_PATH で指定できます)');
   await mkdir(OUT, { recursive: true });
   await mkdir(WORK, { recursive: true });
+  const manifestFile = join(OUT, 'background.json');
+
+  if (encodeOnly) {
+    // 撮り直さず、.cache/background の中間ファイルから Web 用の動画だけ作り直す
+    for (const poi of targets) {
+      const file = join(WORK, `${poi.id}.mp4`);
+      if (!existsSync(file)) {
+        console.warn(`[${poi.id}] 中間ファイルがありません: ${file}`);
+        continue;
+      }
+      await encodeForWeb(poi.id, file);
+      console.log(`[${poi.id}] encoded`);
+    }
+    // 撮影した日時は変えない
+    const old = existsSync(manifestFile) ? JSON.parse(await readFile(manifestFile, 'utf8')) : null;
+    await writeManifest(manifestFile, old?.generatedAt);
+    return;
+  }
+
   const intermediate = (await hasEncoder('h264_nvenc')) ? 'h264_nvenc' : 'libx264';
   console.log('intermediate encoder:', intermediate);
 
@@ -195,21 +284,24 @@ async function main() {
     await browser.close();
   }
 
-  if (!Number.isFinite(frameLimit)) {
-    const manifest = {
-      generatedAt: new Date().toISOString(),
-      bluemap: { url: BLUEMAP_URL, map: BLUEMAP_MAP },
-      seconds: VIDEO.seconds,
-      pois: POIS.filter((p) => existsSync(join(OUT, `${p.id}.av1.mp4`))).map(({ rotation, ...p }) => ({
-        ...p,
-        av1: `${p.id}.av1.mp4`,
-        h264: `${p.id}.h264.mp4`,
-        poster: `${p.id}.jpg`,
-      })),
-    };
-    await writeFile(join(OUT, 'background.json'), JSON.stringify(manifest, null, 2) + '\n');
-    console.log('wrote', join(OUT, 'background.json'));
-  }
+  if (!Number.isFinite(frameLimit)) await writeManifest(manifestFile);
+}
+
+/** サイトが読む background.json (動画のある名所の一覧) */
+async function writeManifest(file, generatedAt = new Date().toISOString()) {
+  const manifest = {
+    generatedAt,
+    bluemap: { url: BLUEMAP_URL, map: BLUEMAP_MAP },
+    seconds: VIDEO.seconds,
+    pois: POIS.filter((p) => existsSync(join(OUT, `${p.id}.av1.mp4`))).map(({ rotation, ...p }) => ({
+      ...p,
+      av1: `${p.id}.av1.mp4`,
+      h264: `${p.id}.h264.mp4`,
+      poster: `${p.id}.jpg`,
+    })),
+  };
+  await writeFile(file, JSON.stringify(manifest, null, 2) + '\n');
+  console.log('wrote', file);
 }
 
 main().catch((e) => {
