@@ -1,5 +1,8 @@
 ---
-title: TORO鯖7周年/⑨鯖10周年記念特設ページ
+title: "TORO鯖7周年/⑨鯖10周年記念特設ページ"
+updated: 2024-11-11T10:40:39+09:00
+author: "mikuni297"
+seesaa: https://seesaawiki.jp/toro_server/d/TORO%bb%aa7%bc%fe%c7%af/%ad%a9%bb%aa10%bc%fe%c7%af%b5%ad%c7%b0%c6%c3%c0%df%a5%da%a1%bc%a5%b8
 ---
 
 ### はじめに

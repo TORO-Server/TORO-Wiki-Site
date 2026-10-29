@@ -1,5 +1,8 @@
 ---
-title: Midori City
+title: "Midori City"
+updated: 2025-07-10T16:10:09+09:00
+author: "heigen_midori"
+seesaa: https://seesaawiki.jp/toro_server/d/Midori%20City
 ---
 
 ### お知らせ

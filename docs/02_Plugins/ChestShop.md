@@ -1,5 +1,8 @@
 ---
-title: ChestShop
+title: "ChestShop"
+updated: 2018-08-22T20:19:34+09:00
+author: "hikahikaru17"
+seesaa: https://seesaawiki.jp/toro_server/d/ChestShop
 ---
 
 ![image](../attachments/fed9f4fab1e53d90edf4f734d85f6aed.png)

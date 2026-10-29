@@ -1,5 +1,8 @@
 ---
-title: Vehicles
+title: "Vehicles"
+updated: 2022-03-28T18:54:14+09:00
+author: "toropon"
+seesaa: https://seesaawiki.jp/toro_server/d/Vehicles
 ---
 
 乗り物を追加するプラグイン  

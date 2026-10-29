@@ -1,5 +1,8 @@
 ---
-title: TrainCarts
+title: "TrainCarts"
+updated: 2025-05-17T14:49:54+09:00
+author: "pizzaharumaki"
+seesaa: https://seesaawiki.jp/toro_server/d/TrainCarts
 ---
 
 TrainCarts、それは~~鉄道業界の革命児~~トロッコの振る舞いを変更し、便利なユーティリティーを提供するプラグインである。  

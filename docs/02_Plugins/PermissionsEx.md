@@ -1,5 +1,8 @@
 ---
-title: PermissionsEx
+title: "PermissionsEx"
+updated: 2018-10-18T01:43:04+09:00
+author: "toropon"
+seesaa: https://seesaawiki.jp/toro_server/d/PermissionsEx
 ---
 
 ## 概要

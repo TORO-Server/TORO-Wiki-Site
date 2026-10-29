@@ -1,5 +1,8 @@
 ---
-title: SnowBallGame
+title: "SnowBallGame"
+updated: 2020-05-11T21:25:35+09:00
+author: "hika_hikaru"
+seesaa: https://seesaawiki.jp/toro_server/d/SnowBallGame
 ---
 
 [野球プラグインに対応したリソースパック](https://nanjminecraft.wiki.fc2.com/jump/https/www.dropbox.com%2Fs%2Ffydlbtpfunqnzhr%2FSnowballGame_Resourcepacks_1.0.zip%3Fdl%3D1)  

@@ -1,5 +1,8 @@
 ---
-title: tomap
+title: "tomap"
+updated: 2020-05-12T15:37:38+09:00
+author: "pizzaharumaki"
+seesaa: https://seesaawiki.jp/toro_server/d/tomap
 ---
 
 > [プラグイン：ImageOnMap](../02_Plugins/%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%EF%BC%9AImageOnMap.md)に最新の説明があります

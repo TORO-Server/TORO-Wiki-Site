@@ -1,5 +1,8 @@
 ---
-title: Discordについて
+title: "Discordについて"
+updated: 2024-07-25T05:11:50+09:00
+author: "mikuni297"
+seesaa: https://seesaawiki.jp/toro_server/d/Discord%a4%cb%a4%c4%a4%a4%a4%c6
 ---
 
 DiscordとはSkypeなどに代わるゲーマー向けチャットアプリです。  

@@ -1,5 +1,8 @@
 ---
-title: TOROServerを10倍楽しむ4つの事
+title: "TOROServerを10倍楽しむ4つの事"
+updated: 2024-12-30T19:49:32+09:00
+author: "mikuni297"
+seesaa: https://seesaawiki.jp/toro_server/d/TOROServer%a4%f210%c7%dc%b3%da%a4%b7%a4%e04%a4%c4%a4%ce%bb%f6
 ---
 
 このページではTOROServerをさらに楽しむ方法を載せていきたいと思います。

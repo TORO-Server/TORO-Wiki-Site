@@ -1,5 +1,8 @@
 ---
-title: TOROバス協会
+title: "TOROバス協会"
+updated: 2020-05-19T19:22:51+09:00
+author: "yuugure335"
+seesaa: https://seesaawiki.jp/toro_server/d/TORO%a5%d0%a5%b9%b6%a8%b2%f1
 ---
 
 ![image](../attachments/d8834a48a5e4d89501d8d3768c3ff96d.png)  

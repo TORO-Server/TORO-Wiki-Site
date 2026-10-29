@@ -1,5 +1,8 @@
 ---
-title: WorldEditコマンド集
+title: "WorldEditコマンド集"
+updated: 2022-12-18T11:45:35+09:00
+author: "eme_tech_"
+seesaa: https://seesaawiki.jp/toro_server/d/WorldEdit%a5%b3%a5%de%a5%f3%a5%c9%bd%b8
 ---
 
 ### コマンド・パーミッション一覧

@@ -1,5 +1,8 @@
 ---
-title: WorldGuard
+title: "WorldGuard"
+updated: 2022-08-03T15:28:52+09:00
+author: "toropon"
+seesaa: https://seesaawiki.jp/toro_server/d/WorldGuard
 ---
 
 ![image](../attachments/cfd02841ca78193f861a2b843a7090ca.png)  

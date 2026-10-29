@@ -1,5 +1,8 @@
 ---
-title: WorldEditCUI
+title: "WorldEditCUI"
+updated: 2023-02-23T22:04:38+09:00
+author: "punipuni_"
+seesaa: https://seesaawiki.jp/toro_server/d/WorldEditCUI
 ---
 
 [WorldEdit](WorldEdit.md)で選択した範囲を可視化するModです。  

@@ -1,5 +1,8 @@
 ---
-title: Lift
+title: "Lift"
+updated: 2025-12-17T15:56:56+09:00
+author: "pizzaharumaki"
+seesaa: https://seesaawiki.jp/toro_server/d/Lift
 ---
 
 > [プラグイン：Lift](%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%EF%BC%9ALift.md)に最新の説明があります

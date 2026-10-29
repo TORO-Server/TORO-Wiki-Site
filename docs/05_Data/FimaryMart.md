@@ -1,5 +1,8 @@
 ---
-title: FimaryMart
+title: "FimaryMart"
+updated: 2018-11-04T19:04:01+09:00
+author: "sakoppi"
+seesaa: https://seesaawiki.jp/toro_server/d/FimaryMart
 ---
 
 **FimaryMart** とは、2017年9月ごろに突如存在が確認されたコンビニエンスストアである。  

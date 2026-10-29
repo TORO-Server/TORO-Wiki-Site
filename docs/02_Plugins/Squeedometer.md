@@ -1,5 +1,8 @@
 ---
-title: Squeedometer
+title: "Squeedometer"
+updated: 2022-04-21T09:13:41+09:00
+author: "yuugure335"
+seesaa: https://seesaawiki.jp/toro_server/d/Squeedometer
 ---
 
 当MODはVer1.13以降に対応していません。そのため今後TORO Serverでの利用は非推奨です。  

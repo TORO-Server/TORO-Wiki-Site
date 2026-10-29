@@ -1,5 +1,8 @@
 ---
-title: プラグイン：Skills
+title: "プラグイン：Skills"
+updated: 2025-06-16T15:47:04+09:00
+author: "pizzaharumaki"
+seesaa: https://seesaawiki.jp/toro_server/d/%a5%d7%a5%e9%a5%b0%a5%a4%a5%f3%a1%a7Skills
 ---
 
 ### Skillsプラグイン

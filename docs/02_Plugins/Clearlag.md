@@ -1,5 +1,8 @@
 ---
-title: Clearlag
+title: "Clearlag"
+updated: 2021-11-07T14:53:05+09:00
+author: "punipuni_"
+seesaa: https://seesaawiki.jp/toro_server/d/Clearlag
 ---
 
 ワールド内のエンティティ（アイテムなど）を自動的に消去する。  

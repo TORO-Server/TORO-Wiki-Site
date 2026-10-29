@@ -1,5 +1,8 @@
 ---
-title: LunaChat
+title: "LunaChat"
+updated: 2020-04-17T14:37:58+09:00
+author: "hika_hikaru"
+seesaa: https://seesaawiki.jp/toro_server/d/LunaChat
 ---
 
 ### 概要

@@ -1,5 +1,8 @@
 ---
-title: Friday-Night
+title: "Friday-Night"
+updated: 2021-07-08T16:44:16+09:00
+author: "tanukiti_railway"
+seesaa: https://seesaawiki.jp/toro_server/d/Friday%2dNight
 ---
 
 **Friday-Night**(フライデーナイト)とは、株式会社つばめ放送が提供するラジオ番組である。  

@@ -1,5 +1,8 @@
 ---
-title: TOROpassシステム
+title: "TOROpassシステム"
+updated: 2025-05-04T14:18:05+09:00
+author: "sapporo_salmon"
+seesaa: https://seesaawiki.jp/toro_server/d/TOROpass%a5%b7%a5%b9%a5%c6%a5%e0
 ---
 
 ![image](../attachments/8d9671155c91356db4f6bdfd2f0f90b9.png)

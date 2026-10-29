@@ -1,5 +1,8 @@
 ---
-title: TORO Music Circle
+title: "TORO Music Circle"
+updated: 2024-10-26T19:43:18+09:00
+author: "barusugan_pocketkie"
+seesaa: https://seesaawiki.jp/toro_server/d/TORO%20Music%20Circle
 ---
 
 ![](../attachments/386696e9903dfdfe8057eaf0b13380d0.gif)
@@ -16,24 +19,29 @@ title: TORO Music Circle
   * [ポスター](#content_3_5)
 * [沿革](#content_4)
 
+<a id="content_1"></a>
 ### TORO Music Circleについて
 
 TORO Music Circle（以下TMC）は、音楽に興味を持っている方々が自由に音楽関係のことを積極的に話したり行ったり出来るDiscord鯖として、barusuganによって公開されました。  
 TMCではTORO Serverで処罰されるようなこと以外であれば基本的に何をしてもOKです。（楽器練習、イベントの企画、作品の公開、好きな曲の共有、雑談、等々）
 
+<a id="content_1_1"></a>
 #### Discord
 
 どなたでも参加OKです！  
 [https://discord.gg/rKh2YYwnmU](https://discord.gg/rKh2YYwnmU)
 
+<a id="content_2"></a>
 ### イベント
 
+<a id="content_2_2"></a>
 #### 予定
 
 | イベント名 | 予定日 | 主催者 | 場所 | 備考 |
 | --- | --- | --- | --- | --- |
 |  |  |  |  |  |
 
+<a id="content_2_3"></a>
 #### 過去
 
 | イベント名 | 実施日 | 主催者 | 場所 | 備考 |
@@ -41,8 +49,10 @@ TMCではTORO Serverで処罰されるようなこと以外であれば基本的
 | 第２回 TMC闇鍋MIX | 2024/06/30 - 07/08 | barusugan | [TMC Discord](https://discord.com/channels/1167546214946963579/1253721711300575254) | テーマ：RPGの通常戦闘 |
 | 第１回 TMC闇鍋MIX | 2023/12/30 - 2024/01/09 | barusugan | [TMC Discord](https://discord.com/channels/1167546214946963579/1187452258884014100/1187794574924591124) |  |
 
+<a id="content_3"></a>
 ### 制作物
 
+<a id="content_3_4"></a>
 #### アイコン
 
 ![](../attachments/386696e9903dfdfe8057eaf0b13380d0.gif)
@@ -51,6 +61,7 @@ TMCではTORO Serverで処罰されるようなこと以外であれば基本的
 ![image](../attachments/cd6a4b4c5036c7941e4cbfe99ca0fe8b.png)  
 作：Lhcrizm
 
+<a id="content_3_5"></a>
 #### ポスター
 
 ![](../attachments/386696e9903dfdfe8057eaf0b13380d0.gif)
@@ -58,6 +69,7 @@ TMCではTORO Serverで処罰されるようなこと以外であれば基本的
 ![image](../attachments/5b6444a3dab5d44c9d515bfad2660d1b.png)  
 作：Lhcrizm
 
+<a id="content_4"></a>
 ### 沿革
 
 * [2024/04/05] TMC勧誘ポスター作成

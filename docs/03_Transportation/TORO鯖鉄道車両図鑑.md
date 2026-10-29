@@ -1,5 +1,8 @@
 ---
-title: TORO鯖鉄道車両図鑑
+title: "TORO鯖鉄道車両図鑑"
+updated: 2020-06-06T16:39:09+09:00
+author: "yuugure335"
+seesaa: https://seesaawiki.jp/toro_server/d/TORO%bb%aa%c5%b4%c6%bb%bc%d6%ce%be%bf%de%b4%d5
 ---
 
 鯖内の電車や機関車などの細かい設定とかなんかを載せていくページです。  

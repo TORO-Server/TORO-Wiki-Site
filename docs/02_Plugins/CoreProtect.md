@@ -1,115 +1,110 @@
 ---
-title: Coreprotect
+title: "CoreProtect"
+updated: 2020-05-30T00:48:06+09:00
+author: "barusugan_pocketkie"
+seesaa: https://seesaawiki.jp/toro_server/d/CoreProtect
 ---
 
-### 概要
+![](https://proxy.spigotmc.org/2705382484a190b9fbbc00f8a5b2db46c3d3362b?url=http%3A%2F%2Fuserfolio.com%2Fuploads%2Fcoreprotect2-banner.png)
 
-当鯖で利用している様々なプレイヤーの行動を取るためのプラグイン。
+このサーバーには「CoreProtect」というブロック操作履歴を記録するプラグインが導入されており、  
+誰がブロックを設置したか等を調べることができます。
 
-### config
+**目次**
 
-### パラメーター
+- [使い方](#content_1)
+  - [機能のON・OFF](#content_1_1)
+  - [ログの取り方](#content_1_2)
+  - [ログの見方](#content_1_3)
+- [コマンド一覧](#content_2)
+  - [一般](#content_2_4)
+  - [運営向け](#content_2_5)
+    - [パラメータ](#content_2_5_1)
 
-各コマンド共通のパラメーターについて説明する。
+<a id="content_1"></a>
+## 使い方
 
-| 名前 | 何 |
-| --- | --- |
-| a: | アクション |
-| b: | ブロック |
-| e: | 除外 |
-| t: | 時間 |
-| r: | 半径 |
-| u: | ユーザー |
+<a id="content_1_1"></a>
+### 機能のON・OFF
 
-#### アクション
+ブロック操作履歴の確認機能を有効にするには、<b>/co i</b> と実行します。  
+<span style="color:#009999">CoreProtect</span> - Inspector now enabled. と表示されると有効になります。
 
-| 文字列 | 行為 |
-| --- | --- |
-| block | ブロックの設置・破壊 |
-| +block | ブロックの設置 |
-| -block | ブロックの破壊 |
-| interact | 右クリック・左クリック |
-| container | チェスト・かまどなどからの出し入れ |
-| +container | チェスト・かまどへの搬入 |
-| -container | チェスト・かまどからの搬出 |
-| kill | エンティティの殺害 |
-| chat | チャット |
-| session | ログイン・ログアウト |
-| +session | ログイン |
-| -session | ログアウト |
-| username | 名前の変更 |
+無効にする際も、<b>/co i</b> と実行します。  
+<span style="color:#009999">CoreProtect</span> - Inspector now disabled. と表示されると無効になります。
 
-#### ブロック
+<a id="content_1_2"></a>
+### ログの取り方
 
-ブロックIDを記入する。複数の場合はコンマで区切る。
+機能を有効にした後、ブロックを**左クリック**すると、その位置のログを取得できます。  
+また、**右クリック**すると、クリックしたその面の上の位置のログを取得できます。
 
-#### 除外
+レバーやドアなどの右クリックで変化するブロックは、**右クリック**で使用履歴を取得できます。（左クリック時は上記と同じ）
 
-これもブロックID。複数の場合はコンマで区切る。[未検証]
+<a id="content_1_3"></a>
+### ログの見方
 
-#### 時間
+![](../attachments/746ac9ee867574af9e60dfff08a7f623.png)
 
-アクションをどのくらい前の時点まで戻すか。  
-\<数値\>\<単位\>[\<数値2\>\<単位2\>…]
+- ----- <span style="color:#009999">CoreProtect</span> ----- <u><b>(x座標/y座標/z座標)</b></u> ← どこのログを見ているかを表しています。
+- <span style="color:#999"><u>**x.xx/h ago**</u></span> ← 何時間前に編集されたかを表しています。(「h」は「hour」の略で、日本語で「〜時間」という意味です。)
+- <span style="color:#999">x.xx/h ago</span> - <span style="color:#009999"><u>**DOorDIE**</u></span> ← 編集した人を表しています。
+- <span style="color:#999">x.xx/h ago</span> - <span style="color:#009999">DOorDIE</span> <u>**removed**</u> ← ブロックを取り除いたことを表しています。
+- <span style="color:#999">x.xx/h ago</span> - <span style="color:#009999">DOorDIE</span> <u>**placed**</u> ← ブロックを設置したことを表しています。
+- <span style="color:#999">x.xx/h ago</span> - <span style="color:#009999">DOorDIE</span> placed <span style="color:#009999"><u>**rails**</u></span> ← レールを設置したことを表しています。
 
-|  |  |
-| --- | --- |
-| 単位 | 意味 |
-| w | 週間 |
-| d | 日 |
-| h | 時間 |
-| m | 分 |
-| s | 秒 |
+ロールバックされたものは <span style="color:#999">x.xx/h ago</span> - <span style="color:#009999">~~DOorDIE~~</span> ~~placed~~ <span style="color:#009999">~~rails~~</span> のように取り消し線が引かれています。  
+ページがある場合は、<b>/co l ページ数</b> でページを変えることができます。
 
-![](../attachments/386696e9903dfdfe8057eaf0b13380d0.gif)
+<a id="commandlist"></a>
 
-例
+<a id="content_2"></a>
+## コマンド一覧
 
-* t:2w,5d,7h,2m,10s
-  * 2週間と5日と7時間2分10秒前
-* t:5d2h
-  * 5日と2時間前
-* t:2.5h
-  * 2時間半前
+<a id="content_2_4"></a>
+### 一般
 
-#### 場所
+| コマンド | 説明 | 短縮形 |
+| --- | --- | --- |
+| /co inspect | ログ取得モードのON,OFF | /co i |
+| /co lookup <ページ> | 取得したログのページ替え | /co l |
 
-数値を指定すると足元から半径以内のブロックだけが選択され、#のあとにワールド名を入れるとそのワールド全体が選択される。  
-また、#globalと入れるとすべてのワールドが選択され、#weや#worldeditと入れると[WorldEdit](WorldEdit.md)のセッションが選択される。
+<a id="content_2_5"></a>
+### 運営向け
 
-#### ユーザー
+| コマンド | 説明 | 短縮形 |
+| --- | --- | --- |
+| /co lookup <パラメータ> | 指定したパラメータでログ情報を取得 | /co l |
+| /co near | 自身を中心に半径5ブロック内のログを取得<br>(多少時間がかかります) |  |
+| /co rollback <パラメータ> | 指定したパラメータのログをもとに巻き戻す | /co rb |
+| /co restore <パラメータ> | 指定したパラメータでrollbackした部分を戻す | /co rs |
+| /co undo | rollbackまたはrestoreしたことを取り消す |  |
 
-単にユーザー名を指定する。  
+<a id="content_2_5_1"></a>
+#### パラメータ
 
-![](../attachments/386696e9903dfdfe8057eaf0b13380d0.gif)
+| パラメータ | 説明 | 例 |
+| --- | --- | --- |
+| u:<プレイヤー名> | プレイヤーを指定 「,」で複数指定可 | u:Steve |
+| t:<時間> | 現在からの時間の範囲を指定<br>1w=1週間,1d=1日,1h=1時間,1m=1分,1s=1秒 | t:2d |
+| r:<範囲> | 範囲を指定<br>10=半径10ブロック,#global=サーバー内のワールド全体,<br>#<ワールド名>=指定ワールド全体,#we=WorldEditの指定範囲 | r:#main |
+| a:<行動> | 行動を指定<br>block=ブロック設置と破壊(+block=設置,-block=破壊),click=右クリック,<br>container=チェストへの出し入れ(+container=入れ,-container=出し),kill=mob殺害 | a:-block |
+| b:<ブロック> | ブロックを指定 「,」で複数指定可 | b:tnt,lava |
+| e:<ブロック> | ブロックを除外 「,」で複数指定可 | e:stone,dirt |
+| #preview | rollbackまたはrestoreを実行する前に確認をいれる |  |
+| #verbose | rollbackまたはrestore時の追加情報を表示 |  |
+| #silent | rollbackまたはrestore時の情報を最小限にする |  |
 
-水やら溶岩やらの一覧
+例：Steveの2日前までの行動をメインワールド内の範囲で確認つきでロールバックする
 
-|  |  |
-| --- | --- |
-| 物質 | 名前 |
-| 水/水流 | #water |
-| 溶岩/溶岩流 | #lava |
+> /co rb u:Steve t:2d r:#main #preview
 
-### 凡例
+例：Steveの10時間前までに設置した水と溶岩とそれらによって生成されたブロックをWorldEditで指定した範囲でロールバックする
 
-特定の1ユーザーについて、全ての行動をロールバック  
-/co rb u:誰か r:#global t:いつ?
+> /co rb u:Steve,#water,#lava a:+block b:stone,cobblestone,obsidian,water,flowing_water,lava,flowing_lava t:10h r:#we
 
-### command
+---
 
-[パーミッションノード](http://minerealm.com/community/viewtopic.php?f=32&t=6782)  
-[コマンド](http://www.minerealm.com/community/viewtopic.php?f=32&t=6781)  
+[公式コマンド一覧（英語）](http://minerealm.com/community/viewtopic.php?f=32&t=6781)
 
-| コマンド | パーミッションノード | 解説 | エイリアス |
-| --- | --- | --- | --- |
-| /co inspect | coreprotect.inspect | クリックしたところのログを見る | /co i |
-| /co help | coreprotect.help | ヘルプを見る |  |
-| /co rollback \<パラメーター\> | coreprotect.rollback | ロールバック！ | /co rb |
-| /co restore \<パラメーター\> | coreprotect.restore | ロールバックの取り消し | /co rs |
-| /co lookup \<パラメーター\> | coreprotect.lookup | ログのリストを見る | /co l |
-| /co purge \<パラメーター\> | coreprotect.purge | ログの削除 |  |
-| /co reload | coreprotect.reload | コンフィグのリロード |  |
-| /co version |  | バージョンを見る |  |
-| /co near |  | 5ブロック以内のログを見る |  |
-| /co undo |  | オペレーションのアンドゥ |  |
+他、わからないことがございましたら運営や他の住民の方へお聞きいただけると幸いです。

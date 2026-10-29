@@ -1,5 +1,8 @@
 ---
-title: barulog
+title: "barulog"
+updated: 2023-11-02T04:28:14+09:00
+author: "barusugan_pocketkie"
+seesaa: https://seesaawiki.jp/toro_server/d/barulog
 ---
 
 ( ◠‿◠ )  
@@ -19,16 +22,19 @@ title: barulog
   
   
 
+<a id="content_1"></a>
 ### 記事
 
+<a id="content_1_1"></a>
 #### [2023/11/02] TORO Music Circle OPEN!
 
 音楽活動をしている・始めた鯖民を見かけて、そういえばTOROで音楽関係のことを積極的に話せる場所が無いなぁと思い、TORO Music Circle (Discord鯖)を作成しました。  
 TMCでは楽器練習、イベントの企画、作品の公開、好きな曲の共有、等々、音楽に関係することであれば何でもOKです。(もちろん荒らしや他鯖勧誘などサーバールールに違反することはNG)  
 音楽活動をしていない方も参加OKです♫  
   
-[【TMCに参加】](http://seesaawiki.jp/t/external-link/?url=https%3a//discord%2egg/rKh2YYwnmU)
+[【TMCに参加】](https://discord.gg/rKh2YYwnmU)
 
+<a id="content_1_2"></a>
 #### [2023/02/14] 楽器 INS1014A1 Mini Piano Box
 
 [![INS1014A1](../attachments/422ec5f1c9dab57e3d3a815d1cd6ca8b.png "INS1014A1")](https://image02.seesaawiki.jp/t/r/toro_server/7_dkR2FfhF.38.11.png)  
@@ -36,14 +42,17 @@ TMCでは楽器練習、イベントの企画、作品の公開、好きな曲�
 前面のレバーを操作してド-ド#(14音)の音を鳴らせます。  
 コピーOKです。改造する場合は銘板を外してください(内側前左上にもあります)。
 
+<a id="content_1_3"></a>
 #### [2023/02/02] ブログ OPEN @ TORO
 
 ✌( ◠‿◠ )✌
 
+<a id="content_2"></a>
 ### リンク
 
 * [X(Twitter)](https://twitter.com/PocketKie)
 
+<a id="content_3"></a>
 ### ( ◠‿◠ )
 
 ![](../attachments/386696e9903dfdfe8057eaf0b13380d0.gif)

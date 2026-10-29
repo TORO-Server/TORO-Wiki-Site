@@ -1,5 +1,8 @@
 ---
-title: Emojicord
+title: "Emojicord"
+updated: 2023-01-27T11:16:16+09:00
+author: "yuugure335"
+seesaa: https://seesaawiki.jp/toro_server/d/Emojicord
 ---
 
 当MODのサポート、配布は終了した模様です。(一応解説は残しておきます)  

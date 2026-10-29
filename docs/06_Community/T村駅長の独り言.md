@@ -1,5 +1,8 @@
 ---
-title: T村駅長の独り言
+title: "T村駅長の独り言"
+updated: 2024-04-04T17:04:53+09:00
+author: "tomotakaa"
+seesaa: https://seesaawiki.jp/toro_server/d/T%c2%bc%b1%d8%c4%b9%a4%ce%c6%c8%a4%ea%b8%c0
 ---
 
 ### 2024/04/04 金沢行った時の写真が見つかったので載せるだけ

@@ -1,5 +1,8 @@
 ---
-title: 占都国際空港(SIC)
+title: "占都国際空港(SIC)"
+updated: 2018-03-28T11:49:58+09:00
+author: "x_seibu38117_x"
+seesaa: https://seesaawiki.jp/toro_server/d/%c0%ea%c5%d4%b9%f1%ba%dd%b6%f5%b9%c1%28SIC%29
 ---
 
 #### 占都国際空港のHPです。建設中につき順次情報追加いたします。

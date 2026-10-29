@@ -1,5 +1,8 @@
 ---
-title: T鉄(T村鉄道)
+title: "T鉄(T村鉄道)"
+updated: 2023-05-19T18:28:18+09:00
+author: "tomotakaa"
+seesaa: https://seesaawiki.jp/toro_server/d/T%c5%b4%28T%c2%bc%c5%b4%c6%bb%29
 ---
 
 このページでは、T鉄(T村鉄道)について紹介します。  

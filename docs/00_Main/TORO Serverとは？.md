@@ -1,5 +1,8 @@
 ---
-title: TORO Serverとは？
+title: "TORO Serverとは？"
+updated: 2024-01-08T13:18:27+09:00
+author: "tanukiti_railway"
+seesaa: https://seesaawiki.jp/toro_server/d/TORO%20Server%a4%c8%a4%cf%a1%a9
 ---
 
 ### 概要

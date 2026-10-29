@@ -1,5 +1,8 @@
 ---
-title: KIR
+title: "KIR"
+updated: 2025-12-03T20:30:41+09:00
+author: "kokeishi001"
+seesaa: https://seesaawiki.jp/toro_server/d/KIR
 ---
 
 ### 注意
