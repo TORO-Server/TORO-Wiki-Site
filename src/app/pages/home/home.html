@@ -1,0 +1,148 @@
+<section class="hero" aria-labelledby="welcome-title">
+  <div class="xp-window welcome">
+    <div class="xp-titlebar">
+      <img src="/logo.svg" alt="" />
+      <span class="title">TORO Server Wiki</span>
+    </div>
+    <div class="welcome-body">
+      <h1 id="welcome-title">TORO Server Wiki へようこそ</h1>
+      <p class="lead">
+        TORO Server は、自由な創作の場を追求するマインクラフトのクリエイティブサーバーです。
+        この Wiki には、ルールや遊び方、プラグインの使い方、サーバーにある街・鉄道・空港のことをまとめています。
+      </p>
+
+      <fieldset class="join">
+        <legend>サーバーに参加する</legend>
+        <div class="address">
+          <span class="label">Java 版:</span>
+          <input readonly [value]="site.javaAddress" aria-label="Java 版のアドレス" (focus)="$any($event.target).select()" />
+          <app-copy-button [text]="site.javaAddress" label="Java 版のアドレス" />
+        </div>
+        <div class="address">
+          <span class="label">統合版:</span>
+          <input readonly [value]="site.bedrockAddress" aria-label="統合版のアドレス" (focus)="$any($event.target).select()" />
+          <span class="port">ポート {{ site.bedrockPort }}</span>
+          <app-copy-button [text]="site.bedrockAddress" label="統合版のアドレス" />
+        </div>
+        <p class="status" aria-live="polite">
+          @if (server.status(); as s) {
+            @if (s.online) {
+              <span class="dot on"></span>オンライン
+              @if (s.players !== undefined) {
+                ({{ s.players }} / {{ s.max }} 人)
+              }
+            } @else {
+              <span class="dot"></span>いまはオフラインです
+            }
+          } @else {
+            <span class="dot idle"></span>サーバーの状態を確認しています…
+          }
+          <a [href]="site.status" target="_blank" rel="noopener">稼働状況</a>
+        </p>
+      </fieldset>
+
+      <div class="actions">
+        <a class="btn primary" [routerLink]="['/wiki', 'ルール']">はじめての方へ (ルール)</a>
+        <a class="btn" routerLink="/wiki">ページ一覧</a>
+        <a class="btn" [href]="site.discord" target="_blank" rel="noopener">Discord に参加</a>
+      </div>
+    </div>
+  </div>
+
+  @if (poi(); as p) {
+    <aside class="balloon" aria-label="背景に映っている場所">
+      <p class="balloon-head">
+        <app-icon name="map" /> いま映っている場所 ({{ p.index + 1 }}/{{ stage.pois().length }})
+      </p>
+      <p class="balloon-name">{{ p.name }}</p>
+      <p class="balloon-note">{{ p.note }} <span class="coords">X {{ p.x }}, Z {{ p.z }}</span></p>
+      <p class="balloon-actions">
+        <button type="button" class="btn" (click)="stage.next(-1)" aria-label="前の場所"><app-icon name="prev" /></button>
+        <button type="button" class="btn" (click)="stage.next(1)" aria-label="次の場所"><app-icon name="next" /></button>
+        @if (p.slug) {
+          <a [routerLink]="['/wiki', p.slug]">Wiki で読む</a>
+        }
+        <a [href]="p.bluemap" target="_blank" rel="noopener">BlueMap で見る</a>
+      </p>
+    </aside>
+  }
+</section>
+
+<div class="explorer xp-window">
+  <div class="xp-titlebar">
+    <app-icon name="book" />
+    <span class="title">TORO Server Wiki - カテゴリー</span>
+  </div>
+  <div class="explorer-body">
+    <aside class="tasks">
+      <section class="xp-pane">
+        <h2>はじめての方へ</h2>
+        <div class="pane-body">
+          <ul>
+            <li><a [routerLink]="['/wiki', 'ルール']">ルール</a></li>
+            <li><a [routerLink]="['/wiki', '利用規約']">利用規約</a></li>
+            <li><a [routerLink]="['/wiki', 'よくある質問']">よくある質問</a></li>
+            <li><a [routerLink]="['/wiki', 'For_those_outside_Japan_日本国外から参加される方へ']">For players outside Japan</a></li>
+            <li><a [routerLink]="['/wiki', 'Discordについて']">Discord について</a></li>
+          </ul>
+        </div>
+      </section>
+      <section class="xp-pane">
+        <h2>その他の場所</h2>
+        <div class="pane-body">
+          <ul>
+            <li><a routerLink="/map">3D マップ (BlueMap)</a></li>
+            <li><a [href]="site.map2d" target="_blank" rel="noopener">2D マップ (Dynmap)</a></li>
+            <li><a [href]="site.status" target="_blank" rel="noopener">サーバーの稼働状況</a></li>
+            <li><a [href]="site.sound" target="_blank" rel="noopener">カスタムサウンド</a></li>
+            <li><a [href]="site.vote" target="_blank" rel="noopener">投票 (JMS)</a></li>
+          </ul>
+        </div>
+      </section>
+      <section class="xp-pane">
+        <h2>詳細</h2>
+        <div class="pane-body">
+          <p>
+            <b>{{ total() }}</b> ページ<br />
+            @if (lastUpdated(); as d) {
+              最終更新: {{ d | jaDate }}
+            }
+          </p>
+        </div>
+      </section>
+    </aside>
+
+    <div class="xp-inset files">
+      <ul class="icons">
+        @for (c of categories(); track c.id) {
+          <li>
+            <a routerLink="/wiki" [fragment]="c.id">
+              <span class="folder" aria-hidden="true"><app-icon [name]="icon[c.id] ?? 'book'" /></span>
+              <span class="name">{{ c.label }}</span>
+              <span class="desc">{{ c.count }} ページ</span>
+            </a>
+          </li>
+        }
+      </ul>
+
+      <h2 class="list-title">最近更新されたページ</h2>
+      <div class="details">
+        <table>
+          <thead>
+            <tr><th>名前</th><th>更新日時</th><th>更新者</th></tr>
+          </thead>
+          <tbody>
+            @for (p of recent(); track p.slug) {
+              <tr>
+                <td><a [routerLink]="['/wiki', p.slug]">{{ p.title }}</a></td>
+                <td>{{ p.updated | jaDate }}</td>
+                <td>{{ p.author }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="more"><a routerLink="/updates">更新履歴をすべて見る</a></p>
+    </div>
+  </div>
+</div>

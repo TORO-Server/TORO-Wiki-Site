@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://wiki.torosaba.net/sitemap.xml
+

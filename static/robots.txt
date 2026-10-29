@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://toro-server.github.io/TORO-Wiki-Site/sitemap.xml

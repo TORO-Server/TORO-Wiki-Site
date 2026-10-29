@@ -1,0 +1,132 @@
+<div class="layout">
+  <aside class="explorer-bar" aria-label="ページの操作と目次">
+    @if (page.value(); as p) {
+      <section class="xp-pane">
+        <h2>ページの操作</h2>
+        <div class="pane-body">
+          <ul class="tasks">
+            <li><a [href]="editUrl()" target="_blank" rel="noopener"><app-icon name="edit" /> このページを編集</a></li>
+            <li><a [href]="historyUrl()" target="_blank" rel="noopener"><app-icon name="history" /> 変更の履歴</a></li>
+            @if (p.seesaa) {
+              <li><a [href]="p.seesaa" target="_blank" rel="noopener"><app-icon name="external" /> 旧 Wiki (seesaa) で見る</a></li>
+            }
+          </ul>
+        </div>
+      </section>
+    }
+
+    @if (toc().length > 2) {
+      <section class="xp-pane toc">
+        <h2>目次</h2>
+        <div class="pane-body">
+          <ol>
+            @for (t of toc(); track t.id) {
+              <li [class.sub]="t.depth === 3"><a routerLink="." [fragment]="t.id">{{ t.text }}</a></li>
+            }
+          </ol>
+        </div>
+      </section>
+    }
+
+    @if (category(); as c) {
+      <section class="xp-pane siblings">
+        <h2><app-icon [name]="icon[c.id] ?? 'book'" /> {{ c.label }}</h2>
+        <div class="pane-body">
+          <ul>
+            @for (s of siblings(); track s.slug) {
+              <li>
+                <a [routerLink]="['/wiki', s.slug]" [class.current]="s.slug === slug()" [attr.aria-current]="s.slug === slug() ? 'page' : null">{{ s.title }}</a>
+              </li>
+            }
+          </ul>
+        </div>
+      </section>
+    }
+  </aside>
+
+  <div class="content">
+    <nav class="address-bar" aria-label="パンくずリスト">
+      <span class="addr-label">アドレス</span>
+      <span class="addr">
+        <a routerLink="/wiki">Wiki</a>
+        @if (category(); as c) {
+          <span aria-hidden="true">›</span>
+          <a routerLink="/wiki" [fragment]="c.id">{{ c.label }}</a>
+        }
+        @if (page.value(); as p) {
+          <span aria-hidden="true">›</span>
+          <span>{{ p.title }}</span>
+        }
+      </span>
+    </nav>
+
+    @if (page.value(); as p) {
+      <article class="sheet doc">
+        <h1>{{ p.title }}</h1>
+        <p class="meta">
+          @if (p.updated) {
+            最終更新: <time [attr.datetime]="p.updated">{{ p.updated | jaDate }}</time>
+          }
+          @if (p.author) {
+            ・ {{ p.author }}
+          }
+          <span class="mobile-actions">
+            <a [href]="editUrl()" target="_blank" rel="noopener">編集</a>
+            <a [href]="historyUrl()" target="_blank" rel="noopener">履歴</a>
+            @if (p.seesaa) {
+              <a [href]="p.seesaa" target="_blank" rel="noopener">旧 Wiki</a>
+            }
+          </span>
+        </p>
+
+        @if (toc().length > 2) {
+          <details class="toc-mobile">
+            <summary>目次</summary>
+            <ol>
+              @for (t of toc(); track t.id) {
+                <li [class.sub]="t.depth === 3"><a routerLink="." [fragment]="t.id">{{ t.text }}</a></li>
+              }
+            </ol>
+          </details>
+        }
+
+        <div #article class="prose" [innerHTML]="html()" (click)="onArticleClick($event)"></div>
+
+        @if (backlinks().length) {
+          <section class="backlinks" aria-labelledby="backlinks-title">
+            <h2 id="backlinks-title">このページにリンクしているページ</h2>
+            <ul>
+              @for (b of backlinks(); track b.slug) {
+                <li><a [routerLink]="['/wiki', b.slug]">{{ b.title }}</a></li>
+              }
+            </ul>
+          </section>
+        }
+
+        <nav class="pager" aria-label="前後のページ">
+          @if (neighbors().prev; as prev) {
+            <a class="btn" [routerLink]="['/wiki', prev.slug]"><app-icon name="prev" /> {{ prev.title }}</a>
+          } @else {
+            <span></span>
+          }
+          @if (neighbors().next; as next) {
+            <a class="btn" [routerLink]="['/wiki', next.slug]">{{ next.title }} <app-icon name="next" /></a>
+          }
+        </nav>
+      </article>
+    } @else if (page.status() === 'resolved' || page.status() === 'error') {
+      <article class="sheet doc missing">
+        <h1>ページが見つかりません</h1>
+        <p>「{{ slug() }}」というページはまだありません。名前が変わったか、旧 Wiki にしかないのかもしれません。</p>
+        <p class="missing-actions">
+          <a class="btn" [routerLink]="['/search']" [queryParams]="{ q: slug() }">「{{ slug() }}」で検索</a>
+          <a class="btn" routerLink="/wiki">ページ一覧</a>
+        </p>
+      </article>
+    } @else {
+      <article class="sheet doc" aria-busy="true">
+        <p class="loading">読み込んでいます…</p>
+      </article>
+    }
+  </div>
+</div>

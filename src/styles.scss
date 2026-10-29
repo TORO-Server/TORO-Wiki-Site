@@ -1,0 +1,515 @@
+// TORO Server Wiki — 旧 Wiki (Docusaurus 版) の Windows XP 風デザインを受け継ぐ。
+// 壁紙 (Bliss) の代わりに、TORO Server の 3D マップをデスクトップに敷く。
+
+:root {
+  color-scheme: light;
+  --font-ui: Tahoma, Verdana, 'Meiryo UI', Meiryo, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+  --font-title: 'Trebuchet MS', Tahoma, 'Meiryo UI', Meiryo, 'Hiragino Sans', sans-serif;
+  --font-mono: Consolas, 'Lucida Console', 'MS Gothic', ui-monospace, monospace;
+
+  // XP (Luna Blue)
+  --xp-title: linear-gradient(180deg, #0997ff, #0053ee 8%, #0050ee 40%, #06f 88%, #06f 93%, #005bff 95%, #003dd7 96%, #003dd7);
+  --xp-title-border: #0831d9;
+  --xp-frame: #003092;
+  --xp-window: #ece9d8;
+  --xp-inset: #7f9db9;
+  --xp-explorer: linear-gradient(180deg, #7b9ee9 0%, #688fce 100%);
+  --xp-pane-head: linear-gradient(90deg, #fff 0%, #c6d3f7 100%);
+  --xp-pane-body: #d6dff7;
+  --xp-pane-ink: #215dc6;
+  --xp-select: #316ac5;
+  --xp-hover: #f2aa28;
+  --xp-start: linear-gradient(180deg, #3c9a3c 0%, #5ab95a 12%, #3a9a3a 60%, #2c7d2c 100%);
+
+  --paper: #fff;
+  --window: var(--xp-window);
+  --ink: #000;
+  --ink-2: #333;
+  --ink-3: #6d6d6d;
+  --line: #d4d0c8;
+  --line-strong: #aca899;
+  --heading: #003399;
+  --link: #0645ad;
+  --link-visited: #551a8b;
+  --mark: #ffef7a;
+  --chip: #f1efe6;
+  --veil-rgb: 59 110 165;
+  --ok: #0a8a2f;
+  --ng: #cc1122;
+
+  --header-h: 54px;
+  --gutter: 15px;
+}
+
+@mixin dark {
+  color-scheme: dark;
+  --xp-title: linear-gradient(180deg, #3a3a3d, #242526 60%, #18191a);
+  --xp-title-border: #444;
+  --xp-frame: #444;
+  --xp-window: #18191a;
+  --xp-inset: #303030;
+  --xp-explorer: #18191a;
+  --xp-pane-head: linear-gradient(90deg, #303033 0%, #2a2b2e 100%);
+  --xp-pane-body: #222325;
+  --xp-pane-ink: #8fb4ff;
+  --xp-select: #3a5f9e;
+
+  --paper: #242526;
+  --window: #18191a;
+  --ink: #e3e3e3;
+  --ink-2: #c4c4c4;
+  --ink-3: #9a9a9a;
+  --line: #3a3a3a;
+  --line-strong: #555;
+  --heading: #fff;
+  --link: #659bfc;
+  --link-visited: #a98bf0;
+  --mark: #6b5514;
+  --chip: #2e2f31;
+  --veil-rgb: 12 13 15;
+  --ok: #4ade80;
+  --ng: #f87171;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    @include dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  @include dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+  scroll-padding-top: calc(var(--header-h) + 24px);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #3b6ea5;
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 16px;
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--link);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 1px dotted currentColor;
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+// ---- XP の部品 ----
+
+/** ウィンドウ (タイトルバー + 本体) */
+.xp-window {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--xp-title-border);
+  border-radius: 8px 8px 0 0;
+  background: var(--window);
+  box-shadow: 2px 2px 5px rgb(0 0 0 / 0.5);
+}
+
+.xp-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 30px;
+  padding: 3px 6px 3px 8px;
+  border-radius: 7px 7px 0 0;
+  background: var(--xp-title);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.3);
+  color: #fff;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-shadow: 1px 1px #0f1089;
+
+  img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .title {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.xp-body {
+  padding: 10px;
+  border-top: 3px solid var(--xp-frame);
+}
+
+/** 窓の中の白い窪み (本文) */
+.sheet,
+.xp-inset {
+  background: var(--paper);
+  border: 1px solid var(--xp-inset);
+  box-shadow: inset 1px 1px 2px rgb(0 0 0 / 0.1);
+}
+
+/** ボタン */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 4px 16px;
+  border: 1px solid #003c74;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #fff 0%, #ece9d8 100%);
+  color: #000;
+  font-size: 0.9rem;
+  line-height: 1.3;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--xp-hover);
+    box-shadow: inset 0 0 0 1px #fbd77e, inset 0 0 2px var(--xp-hover);
+  }
+
+  &:active {
+    background: linear-gradient(180deg, #e3e2da 0%, #f3f2ec 100%);
+  }
+
+  &.primary {
+    box-shadow: inset 0 0 0 1px #98b8ea;
+    font-weight: 700;
+  }
+
+  app-icon {
+    color: #215dc6;
+  }
+}
+
+:root[data-theme='dark'] .btn {
+  border-color: #555;
+  background: linear-gradient(180deg, #3a3b3d 0%, #2a2b2d 100%);
+  color: #e3e3e3;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .btn {
+    border-color: #555;
+    background: linear-gradient(180deg, #3a3b3d 0%, #2a2b2d 100%);
+    color: #e3e3e3;
+  }
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 7px;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  background: var(--chip);
+  color: var(--ink-2);
+  font-size: 0.78rem;
+  line-height: 1.7;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+/** エクスプローラーのタスク ペイン */
+.xp-pane {
+  margin-bottom: 12px;
+  border-radius: 4px 4px 0 0;
+  overflow: hidden;
+
+  > h2,
+  > .pane-head {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    padding: 5px 10px;
+    background: var(--xp-pane-head);
+    color: var(--xp-pane-ink);
+    font-size: 0.85rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  > .pane-body {
+    padding: 8px 10px;
+    background: var(--xp-pane-body);
+    border: 1px solid #fff;
+    border-top: 0;
+    font-size: 0.84rem;
+  }
+}
+
+:root[data-theme='dark'] .xp-pane > .pane-body {
+  border-color: #333;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--ink-3);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+// ---- Wiki の本文 ----
+
+.prose {
+  overflow-wrap: anywhere;
+  line-height: 1.85;
+
+  > :first-child {
+    margin-top: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    position: relative;
+    line-height: 1.45;
+    scroll-margin-top: calc(var(--header-h) + 24px);
+  }
+
+  h1 {
+    font-family: var(--font-title);
+    font-size: 2rem;
+    color: var(--heading);
+  }
+
+  h2 {
+    margin: 1.5em 0 0.6em;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #ccc;
+    color: var(--heading);
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    margin: 1.2em 0 0.5em;
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  h4 {
+    margin: 1.1em 0 0.4em;
+    font-size: 1.05rem;
+  }
+
+  h5 {
+    margin: 1em 0 0.4em;
+    font-size: 1rem;
+    color: var(--ink-2);
+  }
+
+  .anchor {
+    position: absolute;
+    left: -1em;
+    width: 1em;
+    color: var(--ink-3);
+    text-decoration: none;
+    opacity: 0;
+  }
+
+  :is(h1, h2, h3, h4, h5):hover .anchor {
+    opacity: 1;
+  }
+
+  p,
+  ul,
+  ol,
+  blockquote,
+  pre,
+  details,
+  .table-wrap {
+    margin: 0 0 1em;
+  }
+
+  ul,
+  ol {
+    padding-left: 1.6em;
+  }
+
+  a:visited {
+    color: var(--link-visited);
+  }
+
+  img {
+    vertical-align: middle;
+  }
+
+  p > img:only-child,
+  p > a:only-child > img {
+    display: block;
+    margin: 0.4em 0;
+  }
+
+  blockquote {
+    padding: 0.5em 1em;
+    border-left: 4px solid var(--xp-inset);
+    background: var(--chip);
+    color: var(--ink-2);
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    padding: 0.1em 0.35em;
+    background: var(--chip);
+    border: 1px solid var(--line);
+  }
+
+  pre {
+    padding: 0.8em 1em;
+    overflow-x: auto;
+    background: var(--chip);
+    border: 1px solid var(--xp-inset);
+    line-height: 1.55;
+
+    code {
+      padding: 0;
+      border: 0;
+      background: none;
+    }
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid var(--line-strong);
+    margin: 1.8em 0;
+  }
+
+  details {
+    padding: 4px 10px;
+    border: 1px solid var(--line-strong);
+    background: var(--chip);
+
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+    }
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+  }
+
+  table {
+    border-collapse: collapse;
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  th,
+  td {
+    padding: 4px 8px;
+    border: 1px solid var(--line-strong);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  thead th,
+  th {
+    background: linear-gradient(180deg, #fbfbf9, #ebeadb);
+    font-weight: 700;
+  }
+
+  .missing-link {
+    color: var(--ink-2);
+    text-decoration: underline dotted var(--ink-3);
+  }
+
+  mark {
+    background: var(--mark);
+    color: inherit;
+  }
+}
+
+:root[data-theme='dark'] .prose th {
+  background: #303133;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .prose th {
+    background: #303133;
+  }
+}
+
+// seesaa から引き継いだ文字色は明るい背景向けなので、ダークモードでは明るくして読めるようにする
+@mixin dark-prose {
+  .prose :is(span, font)[style*='color'],
+  .prose font[color] {
+    filter: brightness(1.8) saturate(0.85);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    @include dark-prose;
+  }
+}
+
+:root[data-theme='dark'] {
+  @include dark-prose;
+}
+
+// ---- 一覧ページなどの共通 ----
+
+.container {
+  width: 100%;
+  max-width: 1180px;
+  margin-inline: auto;
+  padding: 10px;
+}
+
+.display {
+  font-family: var(--font-title);
+  color: var(--heading);
+  line-height: 1.3;
+}

@@ -1,0 +1,64 @@
+<div class="container wrap">
+  <header class="head sheet">
+    <div>
+      <p class="eyebrow">TORO Server Wiki</p>
+      <h1 class="display">ページ一覧</h1>
+      <p class="sub">
+        {{ visible().length }} ページ
+        @if (lastUpdated(); as d) {
+          · 最終更新 {{ d | jaDate }}
+        }
+      </p>
+    </div>
+    <div class="tools">
+      <label class="filter">
+        <app-icon name="search" />
+        <span class="visually-hidden">ページ名で絞り込む</span>
+        <input type="search" placeholder="ページ名で絞り込む" [value]="filter()" (input)="filter.set($any($event.target).value)" />
+      </label>
+      <button type="button" class="btn" (click)="random()"><app-icon name="shuffle" /> ランダム</button>
+      <a class="btn" routerLink="/updates"><app-icon name="history" /> 更新履歴</a>
+    </div>
+  </header>
+
+  <nav class="jump" aria-label="カテゴリー">
+    @for (g of groups(); track g.id) {
+      <a class="chip" routerLink="/wiki" [fragment]="g.id"><app-icon [name]="icon[g.id] ?? 'book'" /> {{ g.label }} <b>{{ g.pages.length }}</b></a>
+    }
+  </nav>
+
+  @for (g of groups(); track g.id) {
+    <section class="sheet group" [id]="g.id" [attr.aria-labelledby]="g.id + '-title'">
+      <div class="group-head">
+        <app-icon [name]="icon[g.id] ?? 'book'" />
+        <div>
+          <h2 [id]="g.id + '-title'">{{ g.label }}</h2>
+          <p>{{ g.description }}</p>
+        </div>
+      </div>
+      <ul>
+        @for (p of g.pages; track p.slug) {
+          <li>
+            <a [routerLink]="['/wiki', p.slug]">{{ p.title }}</a>
+            @if (p.updated) {
+              <time [attr.datetime]="p.updated">{{ p.updated | jaDate }}</time>
+            }
+          </li>
+        }
+      </ul>
+    </section>
+  } @empty {
+    @if (index.value()) {
+      <p class="sheet none">「{{ filter() }}」を含むページ名はありません。<a routerLink="/search" [queryParams]="{ q: filter() }">本文から検索</a>してみてください。</p>
+    }
+  }
+
+  <aside class="sheet contribute">
+    <h2>Wiki を編集するには</h2>
+    <p>
+      この Wiki は GitHub の
+      <a [href]="site.repo" target="_blank" rel="noopener">TORO-Server/TORO-Website</a>
+      にある Markdown で書かれています。各ページの「編集」から変更を提案できます。
+    </p>
+  </aside>
+</div>

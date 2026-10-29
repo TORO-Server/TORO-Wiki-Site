@@ -1,0 +1,258 @@
+// 旧 Wiki と同じく、画面全体を 1 枚の XP のウィンドウにする。周りの 15px からデスクトップ (3D マップ) が見える
+:host {
+  display: block;
+}
+
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -100px;
+  z-index: 100;
+  padding: 6px 12px;
+  background: #ffffe1;
+  border: 1px solid #000;
+  color: #000;
+
+  &:focus {
+    top: 12px;
+  }
+}
+
+.desktop {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  padding: var(--gutter);
+}
+
+.app-window {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 2 * var(--gutter));
+  border-radius: 8px 8px 0 0;
+  box-shadow: 2px 2px 5px rgb(0 0 0 / 0.5);
+}
+
+// ---- タイトルバー (旧 Wiki のナビゲーションバー) ----
+
+.titlebar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  color: #fff;
+  background: var(--xp-title);
+  border: 1px solid var(--xp-title-border);
+  border-right-color: #001ea0;
+  border-bottom: 0;
+  border-radius: 8px 8px 0 0;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.3);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: var(--header-h);
+  padding: 6px 12px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 10px;
+  color: #fff;
+  font-size: 20px;
+  text-decoration: none;
+  text-shadow: 1px 1px #0f1089;
+  white-space: nowrap;
+
+  img {
+    border: 1px solid rgb(255 255 255 / 0.6);
+  }
+}
+
+.nav {
+  display: flex;
+  gap: 2px;
+
+  a {
+    padding: 4px 12px;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 16px;
+    text-decoration: none;
+    text-shadow: 1px 1px 0 rgb(0 0 0 / 0.5);
+    white-space: nowrap;
+
+    &:hover,
+    &.active {
+      background: rgb(0 0 0 / 0.12);
+    }
+  }
+}
+
+.search {
+  display: flex;
+  margin-left: auto;
+  width: min(260px, 30vw);
+
+  input {
+    flex: 1;
+    min-width: 0;
+    height: 28px;
+    padding: 2px 6px;
+    border: 1px solid var(--xp-inset);
+    border-right: 0;
+    background: #fff;
+    color: #000;
+    font-size: 0.88rem;
+    outline: none;
+  }
+
+  button {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 28px;
+    border: 1px solid #003c74;
+    border-radius: 0 3px 3px 0;
+    background: linear-gradient(180deg, #fff 0%, #ece9d8 100%);
+    color: #215dc6;
+    cursor: pointer;
+  }
+}
+
+.tb-btn {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgb(255 255 255 / 0.7);
+  border-radius: 3px;
+  background: linear-gradient(180deg, #3c8cf7, #1659d6);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.35);
+
+  &:hover {
+    background: linear-gradient(180deg, #5aa0ff, #2a6ee0);
+  }
+}
+
+.menu-btn {
+  display: none;
+}
+
+.mobile-nav {
+  display: grid;
+  padding: 0 12px 10px;
+
+  a {
+    padding: 10px 4px;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 1px 1px 0 rgb(0 0 0 / 0.5);
+    border-top: 1px solid rgb(255 255 255 / 0.2);
+  }
+}
+
+// ---- ウィンドウ本体 ----
+
+main {
+  flex: 1;
+  padding: 3px;
+  background: var(--window);
+  border: 1px solid var(--xp-frame);
+  border-top: 3px solid var(--xp-frame);
+  outline: none;
+}
+
+// トップページは、ウィンドウ本体の上半分がデスクトップ (動画) を透かす
+:host([data-map='hero']) main {
+  background: transparent;
+  border-color: transparent;
+  padding: 0;
+}
+
+// ---- ステータスバー (フッター) ----
+
+.statusbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 2px;
+  background: var(--window);
+  border: 1px solid var(--xp-frame);
+  border-top: 1px solid #fff;
+  border-radius: 0 0 5px 5px;
+  color: var(--ink);
+  font-size: 0.78rem;
+
+  a {
+    color: inherit;
+  }
+}
+
+.cell {
+  padding: 2px 8px;
+  border: 1px solid;
+  border-color: var(--line-strong) #fff #fff var(--line-strong);
+
+  &.grow {
+    flex: 1;
+  }
+}
+
+:root[data-theme='dark'] .cell {
+  border-color: #444 #222 #222 #444;
+}
+
+.legal {
+  color: var(--ink-3);
+}
+
+@media (max-width: 996px) {
+  .desktop {
+    padding: 0;
+  }
+
+  .app-window {
+    min-height: 100vh;
+  }
+
+  .titlebar {
+    border-radius: 0;
+    border: 0;
+    border-bottom: 2px solid #003092;
+  }
+
+  main {
+    border: 0;
+  }
+
+  .statusbar {
+    border-radius: 0;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .menu-btn {
+    display: grid;
+  }
+
+  .search {
+    width: auto;
+    flex: 1;
+  }
+
+  .brand span {
+    display: none;
+  }
+
+  .legal {
+    display: none;
+  }
+}

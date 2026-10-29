@@ -1,0 +1,79 @@
+<app-video-background />
+
+<a class="skip" href="#main">本文へ移動</a>
+
+<div class="desktop">
+  <div class="app-window">
+    <header class="titlebar" [class.open]="menuOpen()">
+      <div class="bar">
+        <a class="brand" routerLink="/" aria-label="TORO Server Wiki トップページ">
+          <img src="/logo.svg" alt="" width="28" height="28" />
+          <span>TORO Server Wiki</span>
+        </a>
+
+        <nav class="nav" aria-label="メインメニュー">
+          <a routerLink="/wiki" routerLinkActive="active">ページ一覧</a>
+          <a routerLink="/updates" routerLinkActive="active">更新履歴</a>
+          <a routerLink="/map" routerLinkActive="active">3D マップ</a>
+          <a [routerLink]="['/wiki', 'ルール']" routerLinkActive="active">ルール</a>
+          <a [href]="site.discord" target="_blank" rel="noopener">Discord</a>
+        </nav>
+
+        <form class="search" role="search" (submit)="search($event)">
+          <label class="visually-hidden" for="site-search">Wiki を検索</label>
+          <input
+            id="site-search"
+            type="search"
+            placeholder="Wiki を検索"
+            autocomplete="off"
+            enterkeyhint="search"
+            [ngModel]="query()"
+            (ngModelChange)="query.set($event)"
+            name="q"
+          />
+          <button type="submit" aria-label="検索"><app-icon name="search" /></button>
+        </form>
+
+        <button class="tb-btn" type="button" (click)="toggleTheme()" [attr.aria-label]="dark() ? 'ライトモードにする' : 'ダークモードにする'">
+          <app-icon [name]="dark() ? 'sun' : 'moon'" />
+        </button>
+        <button
+          class="tb-btn menu-btn"
+          type="button"
+          (click)="menuOpen.set(!menuOpen())"
+          [attr.aria-expanded]="menuOpen()"
+          aria-controls="mobile-nav"
+          aria-label="メニュー"
+        >
+          <app-icon [name]="menuOpen() ? 'close' : 'menu'" />
+        </button>
+      </div>
+
+      @if (menuOpen()) {
+        <nav id="mobile-nav" class="mobile-nav" aria-label="メニュー">
+          <a routerLink="/wiki">ページ一覧</a>
+          <a routerLink="/updates">更新履歴</a>
+          <a routerLink="/map">3D マップ</a>
+          <a [routerLink]="['/wiki', 'ルール']">ルール</a>
+          <a [href]="site.discord" target="_blank" rel="noopener">Discord</a>
+        </nav>
+      }
+    </header>
+
+    <main id="main" tabindex="-1">
+      <router-outlet />
+    </main>
+
+    <footer class="statusbar">
+      <span class="cell grow">
+        <a routerLink="/wiki">ページ一覧</a> ・ <a routerLink="/updates">更新履歴</a> ・ <a href="/feed.xml">RSS</a> ・
+        <a [href]="site.repo" target="_blank" rel="noopener">GitHub</a> ・ <a [href]="site.seesaa" target="_blank" rel="noopener">旧 Wiki (seesaa)</a>
+      </span>
+      <span class="cell">
+        <a [href]="site.map2d" target="_blank" rel="noopener">Dynmap</a> ・ <a [href]="site.map3d" target="_blank" rel="noopener">BlueMap</a> ・
+        <a [href]="site.status" target="_blank" rel="noopener">稼働状況</a> ・ <a [href]="site.official" target="_blank" rel="noopener">公式サイト</a>
+      </span>
+      <span class="cell legal">Mojang Studios・Microsoft とは関係ありません</span>
+    </footer>
+  </div>
+</div>

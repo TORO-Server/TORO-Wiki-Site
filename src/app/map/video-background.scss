@@ -1,0 +1,47 @@
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  // 動画がまだない間・読み込み中は、XP の青い単色の壁紙
+  background: #3b6ea5;
+}
+
+video,
+.still {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.4s ease;
+
+  &.on {
+    opacity: 1;
+  }
+}
+
+.veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: background 0.8s ease;
+}
+
+:host([data-mode='hero']) .veil {
+  background:
+    linear-gradient(0deg, rgb(0 0 0 / 0.45) 0%, rgb(0 0 0 / 0) 35%),
+    linear-gradient(90deg, rgb(0 0 0 / 0.35) 0%, rgb(0 0 0 / 0) 45%);
+}
+
+:host([data-mode='ambient']) .veil {
+  background: rgb(var(--veil-rgb) / 0.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  video,
+  .still {
+    transition: none;
+  }
+}
