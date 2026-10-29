@@ -1,28 +1,27 @@
-import { Component, computed, inject, resource } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, computed, inject, resource, signal } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { ContentService } from '../../core/content';
 import { JaDatePipe } from '../../core/format';
 import { Icon } from '../../core/icons';
 import { Seo } from '../../core/seo';
-import { ServerStatusService } from '../../core/server-status';
 import { SITE } from '../../core/site';
-import { CopyButton } from '../../shared/copy-button';
 import { CATEGORY_ICON } from '../../shared/categories';
 import { MapStage } from '../../map/map-stage';
 import { blueMapUrl, poiPageSlug } from '../../map/map-types';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, Icon, CopyButton, JaDatePipe],
+  imports: [RouterLink, Icon, JaDatePipe],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
 export class Home {
   private readonly content = inject(ContentService);
+  private readonly router = inject(Router);
   protected readonly stage = inject(MapStage);
-  protected readonly server = inject(ServerStatusService);
   protected readonly site = SITE;
   protected readonly icon = CATEGORY_ICON;
+  protected readonly query = signal('');
 
   protected readonly index = resource({ loader: () => this.content.index() });
 
@@ -58,6 +57,16 @@ export class Home {
       description:
         'TORO Server の Wiki。マインクラフトのクリエイティブサーバー TORO Server のルール、遊び方、プラグイン、街や鉄道の情報をまとめています。',
     });
-    this.server.refresh();
+  }
+
+  protected search(e: Event) {
+    e.preventDefault();
+    const q = this.query().trim();
+    if (q) void this.router.navigate(['/search'], { queryParams: { q } });
+  }
+
+  protected random() {
+    const pages = this.visible();
+    if (pages.length) void this.router.navigate(['/wiki', pages[Math.floor(Math.random() * pages.length)].slug]);
   }
 }

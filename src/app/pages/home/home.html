@@ -11,40 +11,16 @@
         この Wiki には、ルールや遊び方、プラグインの使い方、サーバーにある街・鉄道・空港のことをまとめています。
       </p>
 
-      <fieldset class="join">
-        <legend>サーバーに参加する</legend>
-        <div class="address">
-          <span class="label">Java 版:</span>
-          <input readonly [value]="site.javaAddress" aria-label="Java 版のアドレス" (focus)="$any($event.target).select()" />
-          <app-copy-button [text]="site.javaAddress" label="Java 版のアドレス" />
-        </div>
-        <div class="address">
-          <span class="label">統合版:</span>
-          <input readonly [value]="site.bedrockAddress" aria-label="統合版のアドレス" (focus)="$any($event.target).select()" />
-          <span class="port">ポート {{ site.bedrockPort }}</span>
-          <app-copy-button [text]="site.bedrockAddress" label="統合版のアドレス" />
-        </div>
-        <p class="status" aria-live="polite">
-          @if (server.status(); as s) {
-            @if (s.online) {
-              <span class="dot on"></span>オンライン
-              @if (s.players !== undefined) {
-                ({{ s.players }} / {{ s.max }} 人)
-              }
-            } @else {
-              <span class="dot"></span>いまはオフラインです
-            }
-          } @else {
-            <span class="dot idle"></span>サーバーの状態を確認しています…
-          }
-          <a [href]="site.status" target="_blank" rel="noopener">稼働状況</a>
-        </p>
-      </fieldset>
+      <form class="find" role="search" (submit)="search($event)">
+        <label for="home-search">Wiki を検索:</label>
+        <input id="home-search" type="search" name="q" placeholder="ページ名や本文の言葉" autocomplete="off" [value]="query()" (input)="query.set($any($event.target).value)" />
+        <button class="btn" type="submit">検索</button>
+      </form>
 
       <div class="actions">
-        <a class="btn primary" [routerLink]="['/wiki', 'ルール']">はじめての方へ (ルール)</a>
-        <a class="btn" routerLink="/wiki">ページ一覧</a>
-        <a class="btn" [href]="site.discord" target="_blank" rel="noopener">Discord に参加</a>
+        <a class="btn primary" routerLink="/wiki">ページ一覧</a>
+        <a class="btn" routerLink="/updates">更新履歴</a>
+        <button class="btn" type="button" (click)="random()">ランダムなページ</button>
       </div>
     </div>
   </div>

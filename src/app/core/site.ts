@@ -1,4 +1,4 @@
-// サイト全体で使うリンクと、サーバーの接続情報
+// サイト全体で使うリンク
 export const SITE = {
   name: 'TORO Server Wiki',
   url: 'https://wiki.torosaba.net',
@@ -11,7 +11,4 @@ export const SITE = {
   sound: 'https://sound.torosaba.net/',
   vote: 'https://minecraft.jp/servers/torosaba.net/vote',
   seesaa: 'https://seesaawiki.jp/toro_server/',
-  javaAddress: 'torosaba.net',
-  bedrockAddress: 'torosaba.net',
-  bedrockPort: '20080',
 };
