@@ -47,8 +47,10 @@ async function hasEncoder(name) {
 /** ページの中で動かす: UI を隠し、カメラの操作を自分で持つ */
 function setup({ hires, lowres }) {
   const style = document.createElement('style');
+  // 地図は body の直下 (BlueMap の webapp) か、#__nuxt の中 (map-web の Nuxt の画面) にある
   style.textContent = `
-    body > :not(#map-container) { display: none !important; }
+    body > :not(#map-container):not(:has(#map-container)),
+    #map-container ~ * { display: none !important; }
     #map-container > div > div { display: none !important; }
   `;
   document.head.appendChild(style);
