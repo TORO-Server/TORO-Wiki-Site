@@ -16,7 +16,7 @@ export const VIDEO = {
   turn: 0.42,
   hiresViewDistance: 450,
   lowresViewDistance: 5000,
-  // MarumaSign の看板画像 (3D マップの marumasign3d.js) も映すか
+  // MarumaSign の看板画像 (3D マップの map-web が描く) も映すか
   marumasign: true,
 };
 

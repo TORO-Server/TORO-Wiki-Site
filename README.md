@@ -67,9 +67,8 @@ npm run background -- spawn --frames 30   # 試し撮り (.cache/background/spaw
 ```
 
 - 必要なもの: Google Chrome、ffmpeg (`libsvtav1`・`libx264`。NVIDIA の GPU があれば `h264_nvenc` も使います)。
-- MarumaSign の看板の画像も映します ([MarumaSign-Companion](https://github.com/TORO-Server/MarumaSign-Companion) の `marumasign3d.js`)。
-  背景のカメラは名所から離れているので、撮影のときだけ遠くの看板まで描かせます (本番の地図は変えません)。看板の板と URL のラベルは出しません。
-  本番にまだ入れていないスクリプトで撮るときは、`MARUMASIGN_SCRIPT=<marumasign3d.js のパス>` を付けて実行します。
+- MarumaSign の看板の画像も映します (3D マップの map-web が描く。看板のデータは [MarumaSign-Companion](https://github.com/TORO-Server/MarumaSign-Companion) が書く)。
+  背景のカメラは名所から離れているので、撮影のときだけ看板のデータに `fullDrawDistance` を足して遠くの看板まで描かせます (本番の地図は変えません)。看板の板と URL のラベルは出しません。
 - 名所 (座標・名前・回し始める向き) は [`src/app/map/places.json`](src/app/map/places.json) で、`/map` ページと共通です。
   カメラの距離・角度・長さなどは [`scripts/background.config.mjs`](scripts/background.config.mjs) で変えられます。
 - 1 か所 12 秒、1080p の AV1 と 720p の H.264、ポスター画像を作ります。`public/background/background.json` があると、サイトが自動で動画を流します (ないときは XP の青い壁紙)。

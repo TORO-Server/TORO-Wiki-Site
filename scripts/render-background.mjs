@@ -90,18 +90,11 @@ function signsIdle() {
 }
 
 /**
- * MarumaSign Companion の 3D 看板 (marumasign3d.js) を、撮影用に少し変えて返す。
+ * 3D マップの MarumaSign の看板 (map-web の app/bluemap/marumasign/) のデータを、撮影用に少し変えて返す。
  * 本来は看板の大きさに応じて近くのものだけ描く (5×5 の看板なら 71 ブロック以内) が、
- * 背景のカメラは名所から 400 ブロックほど離れるので、512 ブロック以内の看板をすべて描かせる。
+ * 背景のカメラは名所から 400 ブロックほど離れるので、512 ブロック以内の看板をすべて描かせる (fullDrawDistance)。
  * 撮影のブラウザーの中だけの変更で、本番の地図には何もしない。
  */
-const SIGN_PATCHES = [
-  // 看板ごとの表示距離の上限を外す
-  ['return Math.min(cap, Math.min(512, 64 + Math.sqrt(maxSq) * 2));', 'return Math.min(cap, 512);'],
-  // カメラを動かした直後に、看板の入れ替えを撮影の側から呼べるようにする
-  ['        stats: function () {', '        update: function () { dirty = true; update(); },\n        stats: function () {'],
-];
-
 async function interceptSigns(page) {
   const cache = new Map();
   const upstream = async (url) => {
@@ -112,24 +105,13 @@ async function interceptSigns(page) {
   page.on('request', async (req) => {
     const url = req.url();
     try {
-      if (/\/js\/marumasign3d\.js/.test(url)) {
-        // MARUMASIGN_SCRIPT があれば、まだ本番に入れていない手元のスクリプトで撮る
-        const local = process.env.MARUMASIGN_SCRIPT;
-        const r = local ? { status: 200, body: await readFile(local, 'utf8') } : await upstream(url);
-        let body = r.body;
-        for (const [from, to] of SIGN_PATCHES) {
-          if (!body.includes(from)) console.warn(`marumasign3d.js: 差し替える場所が見つかりません: ${from.trim().slice(0, 40)}`);
-          body = body.replace(from, to);
-        }
-        return req.respond({ status: r.status, contentType: 'text/javascript', body });
-      }
       if (/\/marumasign\/[^/?]+\.json/.test(url)) {
         const r = await upstream(url);
         if (r.status !== 200) return req.respond({ status: r.status, body: r.body });
         // 遠くの看板まで描くので、テクスチャは小さく、同時に出す数は多く
         const json = JSON.parse(r.body);
         // 看板の板は消し (MarumaSign 本体と同じ見え方)、URL のラベルは出さない
-        Object.assign(json, { drawDistance: 512, maxActive: 1000, textureSize: 256, hideBoards: true, labels: false });
+        Object.assign(json, { drawDistance: 512, fullDrawDistance: true, maxActive: 1000, textureSize: 256, hideBoards: true, labels: false });
         return req.respond({ status: 200, contentType: 'application/json', body: JSON.stringify(json) });
       }
     } catch (e) {
