@@ -508,6 +508,20 @@ input {
   padding: 10px;
 }
 
+// ---- スマホ: 指で押せる大きさにする (見た目は XP のまま) ----
+
+@media (max-width: 996px) {
+  .btn {
+    min-height: 40px;
+  }
+
+  // 16px 未満の入力欄は、iPhone でフォーカスしたときに画面が拡大されてしまう
+  input[type='search'],
+  input[type='text'] {
+    font-size: 16px;
+  }
+}
+
 .display {
   font-family: var(--font-title);
   color: var(--heading);

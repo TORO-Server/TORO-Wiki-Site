@@ -1,6 +1,6 @@
-// TORO-Server/TORO-SVG のロゴから、ファビコンと OGP 画像を作る (手で実行して、結果をコミットする)
+// TORO-Server/TORO-SVG のロゴから、ファビコン・PWA のアイコン・OGP 画像を作る (手で実行して、結果をコミットする)
 //   node scripts/build-icons.mjs
-import { readFile } from 'node:fs/promises';
+import { mkdir, readFile } from 'node:fs/promises';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
@@ -11,6 +11,23 @@ const logo = await readFile(join(PUBLIC, 'logo.svg'));
 
 await sharp(logo, { density: 300 }).resize(180, 180).png().toFile(join(PUBLIC, 'apple-touch-icon.png'));
 await sharp(logo, { density: 300 }).resize(32, 32).png().toFile(join(PUBLIC, 'favicon-32.png'));
+
+// PWA (manifest.webmanifest) のアイコン
+await mkdir(join(PUBLIC, 'icons'), { recursive: true });
+for (const size of [192, 512]) {
+  await sharp(logo, { density: 300 }).resize(size, size).png().toFile(join(PUBLIC, 'icons', `icon-${size}.png`));
+}
+// maskable: 円や角丸に切り抜かれても文字が欠けないよう、ロゴを 64% に縮めて中央 (安全領域 80% の内側) に置く。
+// 周りは、ロゴと同じ左黒・右白の背景で埋める
+const inner = Math.round(512 * 0.64);
+const shrunk = await sharp(logo, { density: 300 }).resize(inner, inner).png().toBuffer();
+const split = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512">
+  <rect width="256" height="512" fill="#000"/><rect x="256" width="256" height="512" fill="#fff"/>
+</svg>`);
+await sharp(split)
+  .composite([{ input: shrunk, left: (512 - inner) / 2, top: (512 - inner) / 2 }])
+  .png()
+  .toFile(join(PUBLIC, 'icons', 'icon-maskable-512.png'));
 
 // OGP: XP のデスクトップに、Wiki のウィンドウを 1 枚置いた絵
 const W = 1200;

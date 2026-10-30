@@ -249,4 +249,47 @@ h1 {
   h1 {
     font-size: 1.6rem;
   }
+
+  // 指で押せる高さにする
+  .addr a,
+  .mobile-actions a,
+  .backlinks a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  // 短いリンクは、左右に余白を付けて 40px にする
+  .addr a,
+  .mobile-actions a {
+    min-width: 0;
+    padding-inline: 8px;
+  }
+
+  .addr {
+    gap: 0;
+    padding: 0;
+  }
+
+  .mobile-actions {
+    gap: 0 4px;
+    flex-wrap: wrap;
+    margin-left: 0;
+  }
+
+  .toc-mobile {
+    summary {
+      padding: 6px 0;
+    }
+
+    li a {
+      padding: 6px 0;
+    }
+  }
+
+  .backlinks ul {
+    gap: 0 14px;
+  }
 }

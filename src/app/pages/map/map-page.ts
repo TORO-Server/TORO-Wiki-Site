@@ -39,9 +39,9 @@ type Place = (typeof PLACES)[number];
               右の地図は <a [href]="site.map3d" target="_blank" rel="noopener">BlueMap</a> です。ドラッグで回転、右ドラッグで移動、ホイールで拡大します。
             </p>
             @if (wikiSlug(); as slug) {
-              <p><a [routerLink]="['/wiki', slug]">「{{ current()?.name }}」に関する Wiki</a></p>
+              <p><a class="standalone" [routerLink]="['/wiki', slug]">「{{ current()?.name }}」に関する Wiki</a></p>
             }
-            <p><a [href]="src()" target="_blank" rel="noopener">新しいタブで開く <app-icon name="external" /></a></p>
+            <p><a class="standalone" [href]="src()" target="_blank" rel="noopener">新しいタブで開く <app-icon name="external" /></a></p>
           </div>
         </section>
       </aside>
@@ -67,6 +67,7 @@ type Place = (typeof PLACES)[number];
       .layout { grid-template-columns: 1fr; }
       .frame { height: 70svh; order: -1; }
       .places { grid-auto-flow: column; grid-auto-columns: 70%; overflow-x: auto; }
+      .standalone { display: inline-flex; align-items: center; gap: 4px; min-height: 40px; }
     }
   `,
 })

@@ -26,7 +26,9 @@ interface Hit {
         <button class="btn primary" type="submit">検索</button>
       </form>
 
-      @if (!data.value()) {
+      @if (data.status() === 'error') {
+        <p class="sheet note">検索のデータを読み込めませんでした。ネットワークにつながっているか確かめて、もう一度お試しください。</p>
+      } @else if (!data.hasValue()) {
         <p class="sheet note">検索の準備をしています…</p>
       } @else if (terms().length) {
         <p class="count">「{{ text().trim() }}」の検索結果: {{ hits().length }} 件</p>
@@ -54,6 +56,14 @@ interface Hit {
     .hits a { font-weight: 700; font-size: 1.05rem; }
     .hits p { margin: 4px 0 0; color: var(--ink-2); font-size: 0.9rem; line-height: 1.7; }
     .note { padding: 16px 20px; color: var(--ink-2); margin: 0; }
+    @media (max-width: 996px) {
+      /* 1 列の grid の auto だと、折り返せない長い言葉の幅まで広がって画面からはみ出す */
+      .narrow { grid-template-columns: minmax(0, 1fr); }
+      .hits li { padding: 10px 14px; overflow-wrap: anywhere; }
+      .hits a { display: inline-block; min-width: 40px; padding-block: 6px; }
+      .box { padding-left: 12px; }
+      .box input { min-height: 40px; }
+    }
   `,
 })
 export class Search {
@@ -68,7 +78,7 @@ export class Search {
 
   protected readonly hits = computed<Hit[]>(() => {
     const terms = this.terms();
-    const data = this.data.value();
+    const data = this.data.hasValue() ? this.data.value() : undefined;
     if (!terms.length || !data) return [];
     const out: Hit[] = [];
     for (const entry of data) {

@@ -1,6 +1,6 @@
 <div class="layout">
   <aside class="explorer-bar" aria-label="ページの操作と目次">
-    @if (page.value(); as p) {
+    @if (current(); as p) {
       <section class="xp-pane">
         <h2>ページの操作</h2>
         <div class="pane-body">
@@ -53,14 +53,14 @@
           <span aria-hidden="true">›</span>
           <a routerLink="/wiki" [fragment]="c.id">{{ c.label }}</a>
         }
-        @if (page.value(); as p) {
+        @if (current(); as p) {
           <span aria-hidden="true">›</span>
           <span>{{ p.title }}</span>
         }
       </span>
     </nav>
 
-    @if (page.value(); as p) {
+    @if (current(); as p) {
       <article class="sheet doc">
         <h1>{{ p.title }}</h1>
         <p class="meta">
@@ -114,7 +114,16 @@
           }
         </nav>
       </article>
-    } @else if (page.status() === 'resolved' || page.status() === 'error') {
+    } @else if (page.status() === 'error') {
+      <article class="sheet doc missing">
+        <h1>ページを読み込めませんでした</h1>
+        <p>ネットワークにつながっていないようです。オフラインのときは、前に開いたことのあるページだけを読めます。</p>
+        <p class="missing-actions">
+          <button type="button" class="btn" (click)="page.reload()">もう一度読み込む</button>
+          <a class="btn" routerLink="/wiki">ページ一覧</a>
+        </p>
+      </article>
+    } @else if (page.status() === 'resolved') {
       <article class="sheet doc missing">
         <h1>ページが見つかりません</h1>
         <p>「{{ slug() }}」というページはまだありません。名前が変わったか、旧 Wiki にしかないのかもしれません。</p>

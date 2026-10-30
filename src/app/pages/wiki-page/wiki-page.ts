@@ -34,47 +34,51 @@ export class WikiPageView {
     loader: ({ params }) => this.content.page(params),
   });
 
+  /** 読めなかったとき (オフラインで、まだ開いたことのないページなど) は null。resource の value() はエラーのとき例外になる */
+  protected readonly current = computed(() => (this.page.hasValue() ? this.page.value() : null));
+  private readonly idx = computed(() => (this.index.hasValue() ? this.index.value() : undefined));
+
   /** 本文は scripts/build-content.mjs で sanitize-html を通してある */
   protected readonly html = computed(() => {
-    const p = this.page.value();
+    const p = this.current();
     return p ? this.sanitizer.bypassSecurityTrustHtml(p.html) : '';
   });
 
   protected readonly category = computed(() => {
-    const p = this.page.value();
-    return this.index.value()?.categories.find((c) => c.id === p?.category) ?? null;
+    const p = this.current();
+    return this.idx()?.categories.find((c) => c.id === p?.category) ?? null;
   });
 
   protected readonly siblings = computed(() => {
-    const p = this.page.value();
-    const idx = this.index.value();
+    const p = this.current();
+    const idx = this.idx();
     if (!p || !idx) return [];
     return idx.pages.filter((x) => x.category === p.category && !x.hidden);
   });
 
   protected readonly neighbors = computed(() => {
     const list = this.siblings();
-    const i = list.findIndex((x) => x.slug === this.page.value()?.slug);
+    const i = list.findIndex((x) => x.slug === this.current()?.slug);
     return { prev: i > 0 ? list[i - 1] : null, next: i >= 0 && i < list.length - 1 ? list[i + 1] : null };
   });
 
   protected readonly backlinks = computed(() => {
-    const p = this.page.value();
-    const idx = this.index.value();
+    const p = this.current();
+    const idx = this.idx();
     if (!p || !idx) return [];
     return p.backlinks.map((s) => idx.pages.find((x) => x.slug === s)).filter((x) => !!x);
   });
 
-  protected readonly toc = computed(() => (this.page.value()?.toc ?? []).filter((t) => t.depth >= 2 && t.depth <= 3));
+  protected readonly toc = computed(() => (this.current()?.toc ?? []).filter((t) => t.depth >= 2 && t.depth <= 3));
 
-  protected readonly editUrl = computed(() => `${SITE.repo}/edit/main/${this.page.value()?.source}`);
-  protected readonly historyUrl = computed(() => `${SITE.repo}/commits/main/${this.page.value()?.source}`);
+  protected readonly editUrl = computed(() => `${SITE.repo}/edit/main/${this.current()?.source}`);
+  protected readonly historyUrl = computed(() => `${SITE.repo}/commits/main/${this.current()?.source}`);
 
   constructor() {
     effect(() => {
       const slug = this.slug();
-      const p = this.page.value();
-      const summary = this.index.value()?.pages.find((x) => x.slug === slug);
+      const p = this.current();
+      const summary = this.idx()?.pages.find((x) => x.slug === slug);
       if (p) {
         this.seo.set({ title: p.title, description: summary?.excerpt, path: `/wiki/${encodeURIComponent(slug)}` });
       } else if (this.page.status() === 'resolved') {
@@ -84,7 +88,7 @@ export class WikiPageView {
 
     // 本文を描いたあとに、URL の #見出し まで動かす (本文は非同期に届くため)
     afterRenderEffect(() => {
-      const p = this.page.value();
+      const p = this.current();
       if (!p || !this.browser || !location.hash) return;
       const el = document.getElementById(decodeURIComponent(location.hash.slice(1)));
       el?.scrollIntoView();

@@ -57,6 +57,12 @@ const PAGE_SIZE = 60;
     li a:hover { color: var(--link); text-decoration: underline; }
     .who { margin-left: auto; color: var(--ink-3); font-size: 0.82rem; }
     .more { justify-self: center; }
+    @media (max-width: 996px) {
+      .narrow { grid-template-columns: minmax(0, 1fr); }
+      /* 行の高さはそのままで、リンクの当たり判定を広げる */
+      li { padding: 2px 0; }
+      li a { min-width: 40px; padding-block: 6px; }
+    }
   `,
 })
 export class Updates {

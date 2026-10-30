@@ -1,0 +1,46 @@
+{
+  "$schema": "./node_modules/@angular/service-worker/config/schema.json",
+  "index": "/index.csr.html",
+  "navigationRequestStrategy": "freshness",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/index.csr.html",
+          "/manifest.webmanifest",
+          "/favicon.svg",
+          "/favicon-32.png",
+          "/logo.svg",
+          "/apple-touch-icon.png",
+          "/icons/*.png",
+          "/*.css",
+          "/*.js"
+        ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "content",
+      "urls": ["/content/**"],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "timeout": "4s",
+        "maxSize": 400,
+        "maxAge": "30d"
+      }
+    },
+    {
+      "name": "attachments",
+      "urls": ["/attachments/**"],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxSize": 800,
+        "maxAge": "60d"
+      }
+    }
+  ]
+}

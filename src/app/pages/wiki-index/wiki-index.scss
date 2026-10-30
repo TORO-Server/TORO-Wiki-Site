@@ -157,3 +157,45 @@
   margin: 0;
   font-size: 0.92rem;
 }
+
+@media (max-width: 996px) {
+  // 1 列の grid の auto だと、中身の最小幅まで広がって画面からはみ出す
+  .wrap {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tools {
+    width: 100%;
+  }
+
+  .filter {
+    flex: 1 1 100%;
+    min-width: 0;
+
+    input {
+      flex: 1;
+      width: auto;
+      min-width: 0;
+      align-self: stretch;
+    }
+  }
+
+  .jump .chip {
+    min-height: 40px;
+  }
+
+  .group ul {
+    grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+  }
+
+  // 行の高さはそのままで、リンクの当たり判定を広げる
+  .group li {
+    padding: 2px 0;
+  }
+
+  .group a {
+    min-width: 40px;
+    padding-block: 6px;
+    overflow-wrap: anywhere;
+  }
+}

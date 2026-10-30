@@ -8,6 +8,7 @@ import { MapStage } from './map/map-stage';
 import { MapMode } from './map/map-types';
 import { Icon } from './core/icons';
 import { SITE } from './core/site';
+import { PwaUpdates } from './core/pwa';
 
 @Component({
   selector: 'app-root',
@@ -39,6 +40,7 @@ export class App {
       this.menuOpen.set(false);
     });
     if (this.browser) {
+      inject(PwaUpdates).start();
       const t = this.doc.documentElement.dataset['theme'];
       this.dark.set(t ? t === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches);
     }

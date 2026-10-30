@@ -213,26 +213,48 @@ main {
 }
 
 @media (max-width: 996px) {
+  // 横向きの iPhone などでは、切り欠きの横にデスクトップ (動画) を見せる
   .desktop {
-    padding: 0;
+    padding: 0 env(safe-area-inset-right) 0 env(safe-area-inset-left);
   }
 
   .app-window {
+    min-width: 0;
     min-height: 100vh;
   }
 
   .titlebar {
+    padding-top: env(safe-area-inset-top);
     border-radius: 0;
     border: 0;
     border-bottom: 2px solid #003092;
   }
 
+  .bar {
+    padding: 6px 8px;
+  }
+
   main {
+    min-width: 0;
     border: 0;
   }
 
   .statusbar {
+    padding-bottom: calc(2px + env(safe-area-inset-bottom));
     border-radius: 0;
+
+    .cell {
+      flex: 1 1 100%;
+    }
+
+    // 指で押せる高さにする (見た目はステータスバーのまま)
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 40px;
+      min-height: 40px;
+    }
   }
 
   .nav {
@@ -243,9 +265,34 @@ main {
     display: grid;
   }
 
+  // タイトルバーの部品も、指で押せる 40px にする
+  .brand {
+    justify-content: center;
+    min-width: 40px;
+    min-height: 40px;
+    margin-right: 2px;
+  }
+
+  .tb-btn {
+    flex: none;
+    width: 40px;
+    height: 40px;
+  }
+
   .search {
     width: auto;
     flex: 1;
+    min-width: 0;
+
+    input {
+      height: 40px;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 40px;
+      height: 40px;
+    }
   }
 
   .brand span {

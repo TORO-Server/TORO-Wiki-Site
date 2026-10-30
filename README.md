@@ -43,6 +43,18 @@ npm run build      # dist/toro-website/browser に静的サイトを書き出す
 - ページはすべてプリレンダーするので、JavaScript が動かなくても読めます。
 - `main` に push すると GitHub Actions が GitHub Pages に公開します。
 
+## PWA (ホーム画面に追加・オフライン)
+
+スマホのホーム画面に追加でき、一度開いたページはオフラインでも読めます。Angular の Service Worker (`@angular/service-worker`) を使っています。
+
+- 設定は [`ngsw-config.json`](ngsw-config.json)、マニフェストは [`public/manifest.webmanifest`](public/manifest.webmanifest) です。`npm run build` で `ngsw-worker.js` と `ngsw.json` ができます (開発サーバーでは動きません)。
+- アプリの殻 (`index.csr.html`) と、ハッシュ付きの JS・CSS・アイコンは、最初に開いたときにまとめてキャッシュします。
+- ページを開くときは、オンラインなら毎回プリレンダーした HTML をネットワークから取ります (更新がすぐ見えます)。オフラインのときだけ、キャッシュした殻を開いて、キャッシュしたデータで描きます。GitHub Pages の `404.html` もそのまま返します。
+- ページのデータ (`/content/`) は、ネットワーク優先でキャッシュします (4 秒で返らなければキャッシュ)。画像 (`/attachments/`) はキャッシュ優先です。
+- 背景の動画 (`/background/`) は大きいのでキャッシュしません。オフラインでは XP の青い壁紙になります。
+- 新しい版を公開すると、開いている人には次にページを移ったときに、ページごと読み直して届けます ([`src/app/core/pwa.ts`](src/app/core/pwa.ts))。キャッシュを消す必要はありません。
+- アイコン (`public/icons/`) は `node scripts/build-icons.mjs` でロゴから作ります。
+
 ## 背景の 3D マップの動画
 
 背景は、[BlueMap](https://3d-map.torosaba.net/) を GPU で描画して一コマずつ撮影した動画です。

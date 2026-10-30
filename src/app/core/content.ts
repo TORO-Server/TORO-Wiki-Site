@@ -1,4 +1,5 @@
-import { Injectable, InjectionToken, TransferState, inject, makeStateKey } from '@angular/core';
+import { Injectable, InjectionToken, PLATFORM_ID, TransferState, inject, makeStateKey } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 export interface Category {
   id: string;
@@ -66,6 +67,7 @@ export const CONTENT_READER = new InjectionToken<ContentReader>('CONTENT_READER'
 export class ContentService {
   private readonly read = inject(CONTENT_READER);
   private readonly state = inject(TransferState);
+  private readonly browser = isPlatformBrowser(inject(PLATFORM_ID));
   private readonly cache = new Map<string, Promise<unknown>>();
 
   /** プリレンダーで読んだものは TransferState で HTML に埋め込み、ブラウザーで読み直さない */
@@ -77,6 +79,7 @@ export class ContentService {
         const v = this.state.get(key, null as T);
         this.state.remove(key);
         p = Promise.resolve(v);
+        this.warm(path);
       } else {
         p = this.read(path).then((v) => {
           if (transfer) this.state.set(key, v as T);
@@ -87,6 +90,18 @@ export class ContentService {
       this.cache.set(path, p);
     }
     return p as Promise<T>;
+  }
+
+  /**
+   * プリレンダーの HTML に埋め込まれていて読まずに済んだデータも、裏で読んで Service Worker のキャッシュに入れる。
+   * オフラインでは HTML の代わりにアプリの殻 (index.csr.html) が開くので、そのときにこのデータで描く。
+   */
+  private warm(path: string) {
+    if (!this.browser || !('serviceWorker' in navigator)) return;
+    const sw = navigator.serviceWorker;
+    const go = () => setTimeout(() => void fetch(`/content/${path}`).catch(() => undefined), 1000);
+    if (sw.controller) go();
+    else sw.addEventListener('controllerchange', go, { once: true });
   }
 
   index(): Promise<WikiIndex> {
